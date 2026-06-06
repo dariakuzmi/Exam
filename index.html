@@ -4,203 +4,319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Моя сессия</title>
+<title>Сессия 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+:root{
+  --cream:#faf7f2;--cream2:#f4f0e8;--cream3:#ede8df;
+  --ink:#1c1a16;--ink2:#4a4640;--ink3:#8a847a;
+  --gold:#b8955a;--gold-light:#f0e4cc;
+  --we:#2d8c6e;--we-bg:#eaf5f0;--we-border:#c0dfd4;
+  --stat:#6b5fb5;--stat-bg:#f0eefb;--stat-border:#cfc9ef;
+  --trade:#b87333;--trade-bg:#faf0e4;--trade-border:#e8d0b0;
+  --mkt:#7a7a7a;--mkt-bg:#f4f4f0;--mkt-border:#d4d0c8;
+  --pt:#b5537a;--pt-bg:#fceef4;--pt-border:#e8c0d4;
+  --en:#4a7fb5;--en-bg:#eef4fc;--en-border:#c0d4ef;
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:-apple-system,sans-serif;background:#f5f3ef;color:#1a1814;padding-bottom:60px;}
-header{background:#1a1814;color:#f5f3ef;padding:20px;position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;}
-header h1{font-size:18px;font-weight:500;}
-.counter{font-size:13px;opacity:0.6;}
-.counter span{font-size:20px;font-weight:600;opacity:1;color:#fff;}
-.week{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#999;margin:24px 16px 8px;}
-.card{background:#fff;border-radius:12px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-.day-head{background:#f5f3ef;padding:10px 14px;font-size:13px;display:flex;justify-content:space-between;}
-.day-head strong{font-weight:500;}
-.day-head span{color:#999;font-size:12px;}
-.task{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-top:1px solid #f0ede8;cursor:pointer;-webkit-tap-highlight-color:transparent;}
-.task:first-child{border-top:none;}
-.task:active{background:#faf9f6;}
-.cb{width:20px;height:20px;border-radius:50%;border:2px solid #ddd;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
-.cb.done{background:#1a1814;border-color:#1a1814;}
-.cb.done::after{content:'✓';color:#fff;font-size:11px;font-weight:700;}
-.task-body{flex:1;}
-.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;margin-bottom:4px;}
-.t-we{background:#E1F5EE;color:#0F6E56;}
-.t-stat{background:#EEEDFE;color:#3C3489;}
-.t-trade{background:#FAEEDA;color:#633806;}
-.t-mkt{background:#F1EFE8;color:#444441;}
-.t-pt{background:#FBEAF0;color:#72243E;}
-.t-en{background:#E6F1FB;color:#185FA5;}
-.task-text{font-size:14px;line-height:1.4;}
-.task-text.done{text-decoration:line-through;color:#bbb;}
-.note-row{padding:0 14px 10px 46px;}
-.note-row textarea{width:100%;border:1px solid #e8e3da;border-radius:8px;padding:8px;font-size:13px;font-family:inherit;color:#1a1814;background:#faf9f6;resize:none;min-height:52px;outline:none;}
-.note-row textarea::placeholder{color:#bbb;}
-.note-btn{font-size:11px;color:#bbb;margin-top:4px;display:inline-block;cursor:pointer;}
-.event{margin:0 12px 10px;padding:12px 14px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;}
-.ev-exam{background:#E1F5EE;color:#0F6E56;}
-.ev-test{background:#E6F1FB;color:#185FA5;}
-.ev-course{background:#FAEEDA;color:#633806;}
-.ev-pt{background:#FBEAF0;color:#72243E;}
-.ev-date{font-size:12px;font-weight:400;opacity:0.7;margin-top:2px;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+header{background:var(--ink);position:sticky;top:0;z-index:100;}
+.header-inner{display:flex;align-items:stretch;justify-content:space-between;}
+.header-left{padding:18px 24px;border-right:1px solid rgba(255,255,255,0.08);}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#faf7f2;letter-spacing:0.01em;}
+.header-sub{font-size:11px;color:rgba(250,247,242,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
+.header-right{display:flex;align-items:center;}
+.hstat{padding:18px 20px;border-left:1px solid rgba(255,255,255,0.08);text-align:center;}
+.hstat-n{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf7f2;line-height:1;}
+.hstat-l{font-size:10px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:3px;}
+.progress-line{height:2px;background:rgba(255,255,255,0.08);}
+.progress-fill{height:100%;background:var(--gold);transition:width 0.5s ease;}
+.container{max-width:720px;margin:0 auto;padding:0 16px 80px;}
+.week-divider{display:flex;align-items:center;gap:12px;margin:32px 0 14px;}
+.week-divider::before,.week-divider::after{content:'';flex:1;height:0.5px;background:var(--cream3);}
+.week-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink3);white-space:nowrap;}
+.event-banner{border-radius:10px;padding:11px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;border:0.5px solid;}
+.ev-exam{background:var(--we-bg);border-color:var(--we-border);}
+.ev-test{background:var(--en-bg);border-color:var(--en-border);}
+.ev-course{background:var(--trade-bg);border-color:var(--trade-border);}
+.ev-pt{background:var(--pt-bg);border-color:var(--pt-border);}
+.ev-icon{font-size:18px;flex-shrink:0;}
+.ev-text{font-size:13px;font-weight:500;}
+.ev-exam .ev-text{color:var(--we);}
+.ev-test .ev-text{color:var(--en);}
+.ev-course .ev-text{color:var(--trade);}
+.ev-pt .ev-text{color:var(--pt);}
+.ev-date{font-size:11px;color:var(--ink3);margin-top:1px;}
+.day-card{background:#fff;border:0.5px solid var(--cream3);border-radius:14px;margin-bottom:10px;overflow:hidden;}
+.day-head{background:var(--cream2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--cream3);}
+.day-date{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--ink);}
+.day-hours{font-size:11px;color:var(--ink3);}
+.subject-block{border-bottom:0.5px solid var(--cream2);}
+.subject-block:last-child{border-bottom:none;}
+.subject-head{display:flex;align-items:center;gap:10px;padding:10px 16px 8px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;}
+.subject-head:active{background:var(--cream);}
+.tag{font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;border:0.5px solid;flex-shrink:0;}
+.t-we{background:var(--we-bg);color:var(--we);border-color:var(--we-border);}
+.t-stat{background:var(--stat-bg);color:var(--stat);border-color:var(--stat-border);}
+.t-trade{background:var(--trade-bg);color:var(--trade);border-color:var(--trade-border);}
+.t-mkt{background:var(--mkt-bg);color:var(--mkt);border-color:var(--mkt-border);}
+.t-pt{background:var(--pt-bg);color:var(--pt);border-color:var(--pt-border);}
+.t-en{background:var(--en-bg);color:var(--en);border-color:var(--en-border);}
+.subject-title{flex:1;font-size:13px;color:var(--ink2);}
+.subject-prog{font-size:11px;color:var(--ink3);flex-shrink:0;}
+.chevron{font-size:12px;color:var(--ink3);transition:transform 0.2s;margin-left:4px;}
+.chevron.open{transform:rotate(180deg);}
+.ticket-list{padding:0 16px 10px;display:none;}
+.ticket-list.open{display:block;}
+.ticket-note-area{padding:0 0 8px 28px;}
+.ticket-note-area textarea{width:100%;border:0.5px solid var(--cream3);border-radius:8px;padding:6px 10px;font-size:12px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);resize:none;min-height:44px;outline:none;transition:border-color 0.15s;}
+.ticket-note-area textarea:focus{border-color:var(--gold);}
+.ticket-note-area textarea::placeholder{color:var(--ink3);}
+.ticket-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--cream2);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.ticket-row:last-of-type{border-bottom:none;}
+.ticket-row:active{opacity:0.7;}
+.ticket-cb{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--cream3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.ticket-cb.done{background:var(--ink);border-color:var(--ink);}
+.ticket-cb.done::after{content:'✓';color:#fff;font-size:10px;font-weight:600;}
+.ticket-num{font-size:13px;color:var(--ink2);flex:1;}
+.ticket-num.done{text-decoration:line-through;color:var(--ink3);}
+.ticket-edit-btn{font-size:11px;color:var(--ink3);padding:2px 6px;border-radius:4px;border:0.5px solid var(--cream3);background:transparent;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(28,26,22,0.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:500px;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:16px;color:var(--ink);}
+.modal input{width:100%;border:0.5px solid var(--cream3);border-radius:10px;padding:12px 14px;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);outline:none;margin-bottom:12px;}
+.modal input:focus{border-color:var(--gold);}
+.modal-btns{display:flex;gap:8px;}
+.btn-save{flex:1;background:var(--ink);color:#faf7f2;border:none;border-radius:10px;padding:13px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
+.btn-cancel{background:transparent;color:var(--ink3);border:0.5px solid var(--cream3);border-radius:10px;padding:13px 16px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
 </style>
 </head>
 <body>
 <header>
-  <h1>Сессия июнь 2025</h1>
-  <div class="counter"><span id="done">0</span> / <span id="total">0</span> выполнено</div>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-title">Сессия · Июнь 2025</div>
+      <div class="header-sub">Расписание подготовки</div>
+    </div>
+    <div class="header-right">
+      <div class="hstat"><div class="hstat-n" id="h-done">0</div><div class="hstat-l">готово</div></div>
+      <div class="hstat"><div class="hstat-n" id="h-total">0</div><div class="hstat-l">билетов</div></div>
+    </div>
+  </div>
+  <div class="progress-line"><div class="progress-fill" id="prog" style="width:0%"></div></div>
 </header>
-<div id="app"></div>
+<div class="container"><div id="schedule"></div></div>
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-title">Редактировать билет</div>
+    <input type="text" id="modal-input" placeholder="Название билета">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
+      <button class="btn-save" onclick="saveModal()">Сохранить</button>
+    </div>
+  </div>
+</div>
 <script>
-const DATA = [
-  {week:"6–7 июня — Мировая экономика старт",items:[
-    {date:"6 июня, сб",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 1–15"},
-      {tag:"pt",label:"Португальский",text:"Повторение в перерывах"}
+const SCHEDULE=[
+  {week:"6–7 июня — мировая экономика",sections:[
+    {date:"6 июня, сб",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5","Билет 6","Билет 7","Билет 8"]},
+      {tag:"pt",label:"Португальский",tickets:["Повторение в перерывах"]}
     ]},
-    {date:"7 июня, вс",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 16–28"},
-      {tag:"en",label:"Английский",text:"Повторение вечером"}
+    {date:"7 июня, вс",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билет 9","Билет 10","Билет 11","Билет 12","Билет 13","Билет 14","Билет 15","Билет 16","Билет 17","Билет 18"]},
+      {tag:"en",label:"Английский",tickets:["Повторение вечером"]}
     ]}
   ]},
-  {event:{type:"test",text:"Зачёт по английскому",date:"8 июня, вс — 11:00"},items:[
-    {date:"8 июня, вс",hours:"3–4 ч после зачёта",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 29–40"}
+  {event:{type:"test",icon:"📝",text:"Зачёт по английскому",date:"8 июня, вс — 11:00"},sections:[
+    {date:"8 июня, вс",hours:"3–4 ч после зачёта",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билет 19","Билет 20","Билет 21","Билет 22","Билет 23","Билет 24","Билет 25","Билет 26","Билет 27","Билет 28"]}
     ]},
-    {date:"9 июня, пн",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 41–52"}
+    {date:"9 июня, пн",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билет 29","Билет 30","Билет 31","Билет 32","Билет 33","Билет 34","Билет 35","Билет 36","Билет 37","Билет 38","Билет 39","Билет 40"]}
     ]}
   ]},
-  {event:{type:"course",text:"Защита курсовой",date:"10 июня, вт — 11:30"},items:[
-    {date:"10 июня, вт",hours:"3–4 ч после защиты",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 53–62"}
+  {event:{type:"course",icon:"📋",text:"Защита курсовой",date:"10 июня, вт — 11:30"},sections:[
+    {date:"10 июня, вт",hours:"3–4 ч после защиты",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билет 41","Билет 42","Билет 43","Билет 44","Билет 45","Билет 46","Билет 47","Билет 48","Билет 49","Билет 50","Билет 51","Билет 52"]}
     ]}
   ]},
-  {week:"11–15 июня — Статистика + Маркетинг",items:[
-    {date:"11 июня, ср",hours:"5–6 ч",tasks:[
-      {tag:"stat",label:"Статистика",text:"Билеты 1–10"},
-      {tag:"mkt",label:"Маркетинг",text:"Билеты 1–12 (вечер)"}
+  {week:"11–15 июня — МЭ финал + статистика + маркетинг",sections:[
+    {date:"11 июня, ср",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билет 53","Билет 54","Билет 55","Билет 56","Билет 57","Билет 58","Билет 59","Билет 60","Билет 61","Билет 62"]},
+      {tag:"stat",label:"Статистика",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5","Билет 6","Билет 7"]},
+      {tag:"mkt",label:"Маркетинг",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5","Билет 6"]}
     ]},
-    {date:"12 июня, чт",hours:"5–6 ч",tasks:[
-      {tag:"stat",label:"Статистика",text:"Билеты 11–22"},
-      {tag:"mkt",label:"Маркетинг",text:"Билеты 13–25 (вечер)"}
+    {date:"12 июня, чт",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:["Билет 8","Билет 9","Билет 10","Билет 11","Билет 12","Билет 13","Билет 14","Билет 15","Билет 16"]},
+      {tag:"mkt",label:"Маркетинг",tickets:["Билет 7","Билет 8","Билет 9","Билет 10","Билет 11","Билет 12","Билет 13","Билет 14"]}
     ]},
-    {date:"13 июня, пт",hours:"5–6 ч",tasks:[
-      {tag:"stat",label:"Статистика",text:"Билеты 23–32"},
-      {tag:"mkt",label:"Маркетинг",text:"Билеты 26–38 (вечер)"}
+    {date:"13 июня, пт",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:["Билет 17","Билет 18","Билет 19","Билет 20","Билет 21","Билет 22","Билет 23","Билет 24"]},
+      {tag:"mkt",label:"Маркетинг",tickets:["Билет 15","Билет 16","Билет 17","Билет 18","Билет 19","Билет 20","Билет 21","Билет 22","Билет 23","Билет 24","Билет 25"]}
     ]},
-    {date:"14 июня, сб",hours:"5–6 ч",tasks:[
-      {tag:"stat",label:"Статистика",text:"Билеты 33–37 + повтор всех формул"},
-      {tag:"mkt",label:"Маркетинг",text:"Билеты 39–55 (вечер)"}
+    {date:"14 июня, сб",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:["Билет 25","Билет 26","Билет 27","Билет 28","Билет 29","Билет 30","Билет 31","Билет 32"]},
+      {tag:"mkt",label:"Маркетинг",tickets:["Билет 26","Билет 27","Билет 28","Билет 29","Билет 30","Билет 31","Билет 32","Билет 33","Билет 34","Билет 35","Билет 36","Билет 37","Билет 38"]}
     ]},
-    {date:"15 июня, вс",hours:"5 ч",tasks:[
-      {tag:"stat",label:"Статистика",text:"Прогон всех 37 билетов"},
-      {tag:"mkt",label:"Маркетинг",text:"Практический блок — все кейсы (вечер)"}
+    {date:"15 июня, вс",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:["Билет 33","Билет 34","Билет 35","Билет 36","Билет 37","Повтор всех формул"]},
+      {tag:"mkt",label:"Маркетинг",tickets:["Билет 39","Билет 40","Билет 41","Билет 42","Билет 43","Билет 44","Билет 45","Билет 46","Билет 47","Билет 48","Билет 49","Билет 50","Билет 51","Билет 52","Билет 53","Билет 54","Билет 55","Практический блок"]}
     ]}
   ]},
-  {event:{type:"exam",text:"Экзамен по маркетингу 🎯",date:"16 июня, пн"},
-   week:"17–19 июня — Повтор МЭ",items:[
-    {date:"17 июня, вт",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Повтор билетов 14–45 (страны)"}
+  {event:{type:"exam",icon:"🎯",text:"Экзамен по маркетингу",date:"16 июня, пн"},
+   week:"17–19 июня — повтор мировой экономики",sections:[
+    {date:"17 июня, вт",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Повтор билетов 1–30"]},
+      {tag:"mkt",label:"Маркетинг",tickets:["Практический блок вечером"]}
     ]},
-    {date:"18 июня, ср",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Повтор билетов 46–62 (интеграция, организации)"}
+    {date:"18 июня, ср",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Повтор билетов 31–62"]}
     ]},
-    {date:"19 июня, чт",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Финальный прогон всех 62 билетов"}
+    {date:"19 июня, чт",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Финальный прогон всех 62 билетов"]}
     ]}
   ]},
-  {event:{type:"exam",text:"Экзамен по статистике 🎯",date:"20 июня, пт"},
-   week:"21–22 июня — Финальный повтор МЭ",items:[
-    {date:"21 июня, сб",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 1–30 (устно)"}
+  {event:{type:"exam",icon:"🎯",text:"Экзамен по статистике",date:"20 июня, пт"},
+   week:"21–22 июня — финальный повтор МЭ",sections:[
+    {date:"21 июня, сб",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билеты 1–30 устно"]}
     ]},
-    {date:"22 июня, вс",hours:"5–6 ч",tasks:[
-      {tag:"we",label:"МЭ",text:"Билеты 31–62 (устно)"}
+    {date:"22 июня, вс",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:["Билеты 31–62 устно"]}
     ]}
   ]},
-  {event:{type:"exam",text:"Экзамен по мировой экономике 🎯",date:"23 июня, пн"},
-   week:"24–27 июня — Торговля + Португальский",items:[
-    {date:"24 июня, вт",hours:"5–6 ч",tasks:[
-      {tag:"trade",label:"Торговля",text:"Билеты 1–13"},
-      {tag:"pt",label:"Португальский",text:"Повторение (вечер)"}
+  {event:{type:"exam",icon:"🎯",text:"Экзамен по мировой экономике",date:"23 июня, пн"},
+   week:"24–27 июня — торговля + португальский",sections:[
+    {date:"24 июня, вт",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5","Билет 6","Билет 7","Билет 8","Билет 9","Билет 10","Билет 11","Билет 12","Билет 13"]},
+      {tag:"pt",label:"Португальский",tickets:["Повторение вечером"]}
     ]}
   ]},
-  {event:{type:"pt",text:"Португальский — экзамен 1",date:"25 июня, ср"},items:[
-    {date:"26 июня, чт",hours:"5–6 ч",tasks:[
-      {tag:"trade",label:"Торговля",text:"Билеты 14–26"},
-      {tag:"pt",label:"Португальский",text:"Финальное повторение (вечер)"}
+  {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 1",date:"25 июня, ср"},sections:[
+    {date:"26 июня, чт",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:["Билет 14","Билет 15","Билет 16","Билет 17","Билет 18","Билет 19","Билет 20","Билет 21","Билет 22","Билет 23","Билет 24","Билет 25","Билет 26"]},
+      {tag:"pt",label:"Португальский",tickets:["Финальное повторение вечером"]}
     ]}
   ]},
-  {event:{type:"pt",text:"Португальский — экзамен 2",date:"27 июня, пт"},
-   week:"28–29 июня — Торговля финал",items:[
-    {date:"28 июня, сб",hours:"5–6 ч",tasks:[
-      {tag:"trade",label:"Торговля",text:"Билеты 27–34"}
+  {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 2",date:"27 июня, пт"},
+   week:"28–29 июня — торговля финал",sections:[
+    {date:"28 июня, сб",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:["Билет 27","Билет 28","Билет 29","Билет 30","Билет 31","Билет 32","Билет 33","Билет 34"]}
     ]},
-    {date:"29 июня, вс",hours:"5–6 ч",tasks:[
-      {tag:"trade",label:"Торговля",text:"Билеты 35–39"},
-      {tag:"trade",label:"Торговля",text:"Прогон всех 39 билетов"}
+    {date:"29 июня, вс",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:["Билет 35","Билет 36","Билет 37","Билет 38","Билет 39","Прогон всех 39 билетов"]}
     ]}
   ]},
-  {event:{type:"exam",text:"Экзамен по торговле 🎯 Сессия закрыта!",date:"30 июня, пн"},items:[]}
+  {event:{type:"exam",icon:"🏆",text:"Экзамен по торговле · Сессия закрыта!",date:"30 июня, пн"},sections:[]}
 ];
 
-let state = {};
-try{state=JSON.parse(localStorage.getItem('s25')||'{}');}catch(e){}
+let state={};
+try{state=JSON.parse(localStorage.getItem('sess2025')||'{}');}catch(e){}
+function save(){localStorage.setItem('sess2025',JSON.stringify(state));}
+let editTarget=null;
 
-function save(){localStorage.setItem('s25',JSON.stringify(state));}
+function toggleTicket(id){
+  if(!state[id])state[id]={};
+  state[id].done=!state[id].done;
+  save();updateStats();
+  const row=document.getElementById('tr-'+id);
+  if(!row)return;
+  const s=state[id]||{};
+  row.querySelector('.ticket-cb').className='ticket-cb'+(s.done?' done':'');
+  row.querySelector('.ticket-num').className='ticket-num'+(s.done?' done':'');
+}
+
+function toggleSubject(id){
+  const list=document.getElementById('tl-'+id);
+  const chev=document.getElementById('ch-'+id);
+  const isOpen=list.classList.contains('open');
+  list.classList.toggle('open',!isOpen);
+  chev.classList.toggle('open',!isOpen);
+}
+
+function openModal(id,currentName){
+  editTarget=id;
+  document.getElementById('modal-input').value=currentName;
+  document.getElementById('modal').classList.add('open');
+  setTimeout(()=>document.getElementById('modal-input').focus(),100);
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  editTarget=null;
+}
+
+function saveModal(){
+  if(!editTarget)return;
+  const val=document.getElementById('modal-input').value.trim();
+  if(!val)return;
+  if(!state[editTarget])state[editTarget]={};
+  state[editTarget].name=val;
+  save();
+  const nm=document.querySelector('#tr-'+editTarget+' .ticket-num');
+  if(nm)nm.textContent=val;
+  closeModal();
+}
+
+document.getElementById('modal-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter')saveModal();
+  if(e.key==='Escape')closeModal();
+});
+document.getElementById('modal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('modal'))closeModal();
+});
+
+function updateStats(){
+  let total=0,done=0;
+  document.querySelectorAll('.ticket-cb').forEach(cb=>{
+    total++;
+    if(cb.classList.contains('done'))done++;
+  });
+  document.getElementById('h-done').textContent=done;
+  document.getElementById('h-total').textContent=total;
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('prog').style.width=pct+'%';
+}
 
 function render(){
-  const app = document.getElementById('app');
-  let html = '';
-  let taskId = 0;
-  let totalCount = 0;
-  let doneCount = 0;
-
-  DATA.forEach(section => {
-    if(section.event){
-      const e = section.event;
-      html += `<div class="event ev-${e.type}"><div><div>${e.text}</div><div class="ev-date">${e.date}</div></div></div>`;
-    }
+  const app=document.getElementById('schedule');
+  let html='';
+  let subjectId=0;
+  let ticketId=0;
+  SCHEDULE.forEach(section=>{
     if(section.week){
-      html += `<div class="week">${section.week}</div>`;
+      html+=`<div class="week-divider"><span class="week-label">${section.week}</span></div>`;
     }
-    (section.items||[]).forEach(day => {
-      html += `<div class="card"><div class="day-head"><strong>${day.date}</strong><span>${day.hours}</span></div>`;
-      day.tasks.forEach(task => {
-        const id = 't'+taskId++;
-        const s = state[id]||{};
-        totalCount++;
-        if(s.done) doneCount++;
-        html += `<div class="task" onclick="toggle('${id}')">
-          <div class="cb ${s.done?'done':''}"></div>
-          <div class="task-body">
-            <div class="tag t-${task.tag}">${task.label}</div>
-            <div class="task-text ${s.done?'done':''}">${task.text}</div>
-          </div>
-        </div>
-        <div class="note-row">
-          <textarea placeholder="Заметка..." onchange="note('${id}',this.value)" onclick="event.stopPropagation()">${s.note||''}</textarea>
-        </div>`;
+    if(section.event){
+      const e=section.event;
+      html+=`<div class="event-banner ev-${e.type}"><div class="ev-icon">${e.icon}</div><div class="ev-body"><div class="ev-text">${e.text}</div><div class="ev-date">${e.date}</div></div></div>`;
+    }
+    (section.sections||[]).forEach(day=>{
+      html+=`<div class="day-card"><div class="day-head"><div class="day-date">${day.date}</div><div class="day-hours">${day.hours}</div></div>`;
+      day.subjects.forEach(subj=>{
+        const sid='s'+subjectId++;
+        const tids=subj.tickets.map(()=>'tk'+ticketId++);
+        const doneCnt=tids.filter(tid=>state[tid]&&state[tid].done).length;
+        html+=`<div class="subject-block"><div class="subject-head" onclick="toggleSubject('${sid}')"><span class="tag t-${subj.tag}">${subj.label}</span><span class="subject-title">${subj.tickets.length===1?'1 задача':subj.tickets.length+' билетов'}</span><span class="subject-prog">${doneCnt}/${subj.tickets.length}</span><span class="chevron" id="ch-${sid}">▾</span></div><div class="ticket-list" id="tl-${sid}">`;
+        subj.tickets.forEach((ticket,ti)=>{
+          const tid=tids[ti];
+          const s=state[tid]||{};
+          const name=s.name||ticket;
+          html+=`<div class="ticket-row" id="tr-${tid}" onclick="toggleTicket('${tid}')"><div class="ticket-cb ${s.done?'done':''}"></div><div class="ticket-num ${s.done?'done':''}" data-orig="${ticket}">${name}</div><button class="ticket-edit-btn" onclick="event.stopPropagation();openModal('${tid}','${(s.name||ticket).replace(/'/g,'&#39;')}')">✏️</button></div>`;
+        });
+        html+=`<div class="ticket-note-area"><textarea placeholder="Заметка..." onchange="saveNote('${sid}',this.value)" onclick="event.stopPropagation()">${state['note_'+sid]||''}</textarea></div></div></div>`;
       });
-      html += '</div>';
+      html+='</div>';
     });
   });
-
-  app.innerHTML = html;
-  document.getElementById('done').textContent = doneCount;
-  document.getElementById('total').textContent = totalCount;
+  app.innerHTML=html;
+  updateStats();
 }
 
-function toggle(id){
-  if(!state[id]) state[id]={};
-  state[id].done = !state[id].done;
-  save(); render();
-}
-
-function note(id,val){
-  if(!state[id]) state[id]={};
-  state[id].note = val;
+function saveNote(sid,val){
+  state['note_'+sid]=val;
   save();
 }
 
