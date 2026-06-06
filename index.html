@@ -270,10 +270,13 @@ document.getElementById('modal').addEventListener('click',e=>{
 
 function updateStats(){
   let total=0,done=0;
-  document.querySelectorAll('.ticket-cb').forEach(cb=>{
-    total++;
-    if(cb.classList.contains('done'))done++;
-  });
+  document.querySelectorAll('.ticket-row').forEach(()=>total++);
+  document.querySelectorAll('.ticket-cb.done').forEach(()=>done++);
+  document.getElementById('h-done').textContent=done;
+  document.getElementById('h-total').textContent=total;
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('prog').style.width=pct+'%';
+}
   document.getElementById('h-done').textContent=done;
   document.getElementById('h-total').textContent=total;
   const pct=total?Math.round(done/total*100):0;
