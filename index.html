@@ -73,6 +73,7 @@ header{background:var(--ink);position:sticky;top:0;z-index:100;}
 .ticket-cb.done::after{content:'✓';color:#fff;font-size:10px;font-weight:600;}
 .ticket-num{font-size:13px;color:var(--ink2);flex:1;}
 .ticket-num.done{text-decoration:line-through;color:var(--ink3);}
+.ticket-num.is-repeat{color:var(--ink3);font-style:italic;}
 .ticket-edit-btn{font-size:11px;color:var(--ink3);padding:2px 6px;border-radius:4px;border:0.5px solid var(--cream3);background:transparent;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(28,26,22,0.5);z-index:200;align-items:flex-end;justify-content:center;}
 .modal-bg.open{display:flex;}
@@ -93,8 +94,8 @@ header{background:var(--ink);position:sticky;top:0;z-index:100;}
       <div class="header-sub">Расписание подготовки</div>
     </div>
     <div class="header-right">
+      <div class="hstat"><div class="hstat-n" id="h-left">193</div><div class="hstat-l">осталось</div></div>
       <div class="hstat"><div class="hstat-n" id="h-done">0</div><div class="hstat-l">готово</div></div>
-      <div class="hstat"><div class="hstat-n" id="h-total">0</div><div class="hstat-l">билетов</div></div>
     </div>
   </div>
   <div class="progress-line"><div class="progress-fill" id="prog" style="width:0%"></div></div>
@@ -111,115 +112,208 @@ header{background:var(--ink);position:sticky;top:0;z-index:100;}
   </div>
 </div>
 <script>
+const TOTAL_TICKETS = 193;
+
 const SCHEDULE=[
   {week:"6–9 июня — мировая экономика старт",sections:[
     {date:"6 июня, сб",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}
+      ]}
     ]},
     {date:"7 июня, вс",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 6","Билет 7","Билет 8","Билет 9","Билет 10"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"}
+      ]}
     ]},
     {date:"8 июня, пн",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 11","Билет 12","Билет 13","Билет 14","Билет 15"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"}
+      ]}
     ]},
     {date:"9 июня, вт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 16","Билет 17","Билет 18","Билет 19","Билет 20"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"}
+      ]}
     ]}
   ]},
   {week:"10–14 июня — МЭ + маркетинг + статистика",sections:[
     {date:"10 июня, ср",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 21","Билет 22","Билет 23","Билет 24","Билет 25"]},
-      {tag:"mkt",label:"Маркетинг",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5","Билет 6","Билет 7","Билет 8","Билет 9","Билет 10","Билет 11"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 1","Билет 2","Билет 3","Билет 4","Билет 5"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}
+      ]},
+      {tag:"mkt",label:"Маркетинг",tickets:[
+        {t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},
+        {t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}
+      ]}
     ]},
     {date:"11 июня, чт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 26","Билет 27","Билет 28","Билет 29","Билет 30"]},
-      {tag:"mkt",label:"Маркетинг",tickets:["Билет 12","Билет 13","Билет 14","Билет 15","Билет 16","Билет 17","Билет 18","Билет 19","Билет 20","Билет 21","Билет 22"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 6","Билет 7","Билет 8","Билет 9","Билет 10"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"}
+      ]},
+      {tag:"mkt",label:"Маркетинг",tickets:[
+        {t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"},
+        {t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"}
+      ]}
     ]},
     {date:"12 июня, пт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 31","Билет 32","Билет 33","Билет 34","Билет 35"]},
-      {tag:"mkt",label:"Маркетинг",tickets:["Билет 23","Билет 24","Билет 25","Билет 26","Билет 27","Билет 28","Билет 29","Билет 30","Билет 31","Билет 32","Билет 33"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 11","Билет 12","Билет 13","Билет 14","Билет 15"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"}
+      ]},
+      {tag:"mkt",label:"Маркетинг",tickets:[
+        {t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},
+        {t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"}
+      ]}
     ]},
     {date:"13 июня, сб",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 36","Билет 37","Билет 38","Билет 39","Билет 40"]},
-      {tag:"mkt",label:"Маркетинг",tickets:["Билет 34","Билет 35","Билет 36","Билет 37","Билет 38","Билет 39","Билет 40","Билет 41","Билет 42","Билет 43","Билет 44"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 16","Билет 17","Билет 18","Билет 19","Билет 20"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"}
+      ]},
+      {tag:"mkt",label:"Маркетинг",tickets:[
+        {t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},
+        {t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"}
+      ]}
     ]},
     {date:"14 июня, вс",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 41","Билет 42","Билет 43","Билет 44","Билет 45"]},
-      {tag:"mkt",label:"Маркетинг",tickets:["Билет 45","Билет 46","Билет 47","Билет 48","Билет 49","Билет 50","Билет 51","Билет 52","Билет 53","Билет 54","Билет 55"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 21","Билет 22","Билет 23","Билет 24","Билет 25"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"}
+      ]},
+      {tag:"mkt",label:"Маркетинг",tickets:[
+        {t:"Билет 45"},{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},
+        {t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}
+      ]}
     ]}
   ]},
   {week:"15–16 июня — повтор маркетинга + экзамен",sections:[
     {date:"15 июня, пн",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 46","Билет 47","Билет 48","Билет 49","Билет 50"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 26","Билет 27","Билет 28","Билет 29","Билет 30"]},
-      {tag:"mkt",label:"Маркетинг",tickets:["Повтор всех 55 билетов"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"}
+      ]},
+      {tag:"mkt",label:"Маркетинг",tickets:[
+        {t:"Повтор всех 55 билетов",r:true}
+      ]}
     ]}
   ]},
   {event:{type:"exam",icon:"🎯",text:"Экзамен по маркетингу",date:"16 июня, вт"},sections:[
     {date:"16 июня, вт",hours:"после экзамена",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 51","Билет 52","Билет 53"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 31","Билет 32","Билет 33"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"}
+      ]}
     ]}
   ]},
   {week:"17–19 июня — финал МЭ + статистика",sections:[
     {date:"17 июня, ср",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 54","Билет 55","Билет 56","Билет 57","Билет 58"]},
-      {tag:"stat",label:"Статистика",tickets:["Билет 34","Билет 35","Билет 36","Билет 37","Повтор статистики"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 54"},{t:"Билет 55"},{t:"Билет 56"},{t:"Билет 57"},{t:"Билет 58"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},
+        {t:"Повтор статистики",r:true}
+      ]}
     ]},
     {date:"18 июня, чт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Билет 59","Билет 60","Билет 61","Билет 62"]},
-      {tag:"stat",label:"Статистика",tickets:["Повтор всех 37 билетов"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Билет 59"},{t:"Билет 60"},{t:"Билет 61"},{t:"Билет 62"}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Повтор всех 37 билетов",r:true}
+      ]}
     ]},
     {date:"19 июня, пт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Повтор билетов 1–30"]},
-      {tag:"stat",label:"Статистика",tickets:["Финальный повтор формул"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Повтор билетов 1–30",r:true}
+      ]},
+      {tag:"stat",label:"Статистика",tickets:[
+        {t:"Финальный повтор формул",r:true}
+      ]}
     ]}
   ]},
   {event:{type:"exam",icon:"🎯",text:"Экзамен по статистике",date:"20 июня, сб"},sections:[
     {date:"20 июня, сб",hours:"после экзамена",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Повтор билетов 31–62"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Повтор билетов 31–62",r:true}
+      ]}
     ]}
   ]},
   {week:"21–22 июня — финальный повтор МЭ",sections:[
     {date:"21 июня, вс",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Повтор билетов 1–30 устно"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Повтор билетов 1–30 устно",r:true}
+      ]}
     ]},
     {date:"22 июня, пн",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:["Повтор билетов 31–62 устно"]}
+      {tag:"we",label:"МЭ",tickets:[
+        {t:"Повтор билетов 31–62 устно",r:true}
+      ]}
     ]}
   ]},
   {event:{type:"exam",icon:"🎯",text:"Экзамен по мировой экономике",date:"23 июня, вт"},sections:[
     {date:"23 июня, вт",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 1","Билет 2","Билет 3"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"}
+      ]}
     ]}
   ]},
   {week:"24–29 июня — торговля",sections:[
     {date:"24 июня, ср",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 4","Билет 5","Билет 6","Билет 7","Билет 8","Билет 9","Билет 10","Билет 11"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},
+        {t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"}
+      ]}
     ]}
   ]},
   {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 1",date:"25 июня, чт"},sections:[
     {date:"25 июня, чт",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 12","Билет 13","Билет 14"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"}
+      ]}
     ]},
     {date:"26 июня, пт",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 15","Билет 16","Билет 17","Билет 18","Билет 19","Билет 20","Билет 21","Билет 22"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},
+        {t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"}
+      ]}
     ]}
   ]},
   {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 2",date:"27 июня, сб"},sections:[
     {date:"27 июня, сб",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 23","Билет 24","Билет 25"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}
+      ]}
     ]},
     {date:"28 июня, вс",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 26","Билет 27","Билет 28","Билет 29","Билет 30","Билет 31","Билет 32","Билет 33"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},
+        {t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"}
+      ]}
     ]},
     {date:"29 июня, пн",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:["Билет 34","Билет 35","Билет 36","Билет 37","Билет 38","Билет 39","Повтор всех 39 билетов"]}
+      {tag:"trade",label:"Торговля",tickets:[
+        {t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},
+        {t:"Билет 38"},{t:"Билет 39"},
+        {t:"Повтор всех 39 билетов",r:true}
+      ]}
     ]}
   ]},
   {event:{type:"exam",icon:"🏆",text:"Экзамен по торговле · Сессия закрыта!",date:"30 июня, вт"},sections:[]}
@@ -230,7 +324,7 @@ try{state=JSON.parse(localStorage.getItem('sess2026c')||'{}');}catch(e){}
 function save(){localStorage.setItem('sess2026c',JSON.stringify(state));}
 let editTarget=null;
 
-function toggleTicket(id){
+function toggleTicket(id,isRepeat){
   if(!state[id])state[id]={};
   state[id].done=!state[id].done;
   save();
@@ -238,7 +332,8 @@ function toggleTicket(id){
   if(!row)return;
   const s=state[id]||{};
   row.querySelector('.ticket-cb').className='ticket-cb'+(s.done?' done':'');
-  row.querySelector('.ticket-num').className='ticket-num'+(s.done?' done':'');
+  const nm=row.querySelector('.ticket-num');
+  nm.className='ticket-num'+(s.done?' done':'')+(isRepeat?' is-repeat':'');
   updateStats();
   updateSubjectProg();
 }
@@ -293,12 +388,14 @@ document.getElementById('modal').addEventListener('click',e=>{
 });
 
 function updateStats(){
-  let total=0,done=0;
-  document.querySelectorAll('.ticket-row').forEach(()=>total++);
-  document.querySelectorAll('.ticket-cb.done').forEach(()=>done++);
+  let done=0;
+  document.querySelectorAll('.ticket-row:not(.is-repeat-row)').forEach(row=>{
+    if(row.querySelector('.ticket-cb').classList.contains('done'))done++;
+  });
+  const left=TOTAL_TICKETS-done;
+  document.getElementById('h-left').textContent=left;
   document.getElementById('h-done').textContent=done;
-  document.getElementById('h-total').textContent=total;
-  const pct=total?Math.round(done/total*100):0;
+  const pct=Math.round(done/TOTAL_TICKETS*100);
   document.getElementById('prog').style.width=pct+'%';
 }
 
@@ -320,13 +417,15 @@ function render(){
       day.subjects.forEach(subj=>{
         const sid='s'+subjectId++;
         const tids=subj.tickets.map(()=>'tk'+ticketId++);
-        const doneCnt=tids.filter(tid=>state[tid]&&state[tid].done).length;
-        html+=`<div class="subject-block"><div class="subject-head" onclick="toggleSubject('${sid}')"><span class="tag t-${subj.tag}">${subj.label}</span><span class="subject-title">${subj.tickets.length===1?'1 задача':subj.tickets.length+' билетов'}</span><span class="subject-prog">${doneCnt}/${subj.tickets.length}</span><span class="chevron" id="ch-${sid}">▾</span></div><div class="ticket-list" id="tl-${sid}">`;
+        const realCount=subj.tickets.filter(tk=>!tk.r).length;
+        const doneCnt=tids.filter((tid,i)=>state[tid]&&state[tid].done&&!subj.tickets[i].r).length;
+        html+=`<div class="subject-block"><div class="subject-head" onclick="toggleSubject('${sid}')"><span class="tag t-${subj.tag}">${subj.label}</span><span class="subject-title">${realCount===0?'повтор':realCount+' билетов'}</span><span class="subject-prog">${doneCnt}/${realCount||subj.tickets.length}</span><span class="chevron" id="ch-${sid}">▾</span></div><div class="ticket-list" id="tl-${sid}">`;
         subj.tickets.forEach((ticket,ti)=>{
           const tid=tids[ti];
           const s=state[tid]||{};
-          const name=s.name||ticket;
-          html+=`<div class="ticket-row" id="tr-${tid}" onclick="toggleTicket('${tid}')"><div class="ticket-cb ${s.done?'done':''}"></div><div class="ticket-num ${s.done?'done':''}" data-orig="${ticket}">${name}</div><button class="ticket-edit-btn" onclick="event.stopPropagation();openModal('${tid}','${(s.name||ticket).replace(/'/g,'&#39;')}')">✏️</button></div>`;
+          const name=s.name||ticket.t;
+          const isRepeat=ticket.r||false;
+          html+=`<div class="ticket-row${isRepeat?' is-repeat-row':''}" id="tr-${tid}" onclick="toggleTicket('${tid}',${isRepeat})"><div class="ticket-cb ${s.done?'done':''}"></div><div class="ticket-num ${s.done?'done':''}${isRepeat?' is-repeat':''}" data-orig="${ticket.t}">${name}</div><button class="ticket-edit-btn" onclick="event.stopPropagation();openModal('${tid}','${(s.name||ticket.t).replace(/'/g,'&#39;')}')">✏️</button></div>`;
         });
         html+=`<div class="ticket-note-area"><textarea placeholder="Заметка..." onchange="saveNote('${sid}',this.value)" onclick="event.stopPropagation()">${state['note_'+sid]||''}</textarea></div></div></div>`;
       });
