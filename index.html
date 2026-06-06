@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Моя сессия</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,sans-serif;background:#f5f3ef;color:#1a1814;padding-bottom:60px;}
+header{background:#1a1814;color:#f5f3ef;padding:20px;position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;}
+header h1{font-size:18px;font-weight:500;}
+.counter{font-size:13px;opacity:0.6;}
+.counter span{font-size:20px;font-weight:600;opacity:1;color:#fff;}
+.week{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#999;margin:24px 16px 8px;}
+.card{background:#fff;border-radius:12px;margin:0 12px 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.day-head{background:#f5f3ef;padding:10px 14px;font-size:13px;display:flex;justify-content:space-between;}
+.day-head strong{font-weight:500;}
+.day-head span{color:#999;font-size:12px;}
+.task{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-top:1px solid #f0ede8;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.task:first-child{border-top:none;}
+.task:active{background:#faf9f6;}
+.cb{width:20px;height:20px;border-radius:50%;border:2px solid #ddd;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.cb.done{background:#1a1814;border-color:#1a1814;}
+.cb.done::after{content:'✓';color:#fff;font-size:11px;font-weight:700;}
+.task-body{flex:1;}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;margin-bottom:4px;}
+.t-we{background:#E1F5EE;color:#0F6E56;}
+.t-stat{background:#EEEDFE;color:#3C3489;}
+.t-trade{background:#FAEEDA;color:#633806;}
+.t-mkt{background:#F1EFE8;color:#444441;}
+.t-pt{background:#FBEAF0;color:#72243E;}
+.t-en{background:#E6F1FB;color:#185FA5;}
+.task-text{font-size:14px;line-height:1.4;}
+.task-text.done{text-decoration:line-through;color:#bbb;}
+.note-row{padding:0 14px 10px 46px;}
+.note-row textarea{width:100%;border:1px solid #e8e3da;border-radius:8px;padding:8px;font-size:13px;font-family:inherit;color:#1a1814;background:#faf9f6;resize:none;min-height:52px;outline:none;}
+.note-row textarea::placeholder{color:#bbb;}
+.note-btn{font-size:11px;color:#bbb;margin-top:4px;display:inline-block;cursor:pointer;}
+.event{margin:0 12px 10px;padding:12px 14px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;}
+.ev-exam{background:#E1F5EE;color:#0F6E56;}
+.ev-test{background:#E6F1FB;color:#185FA5;}
+.ev-course{background:#FAEEDA;color:#633806;}
+.ev-pt{background:#FBEAF0;color:#72243E;}
+.ev-date{font-size:12px;font-weight:400;opacity:0.7;margin-top:2px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>Сессия июнь 2025</h1>
+  <div class="counter"><span id="done">0</span> / <span id="total">0</span> выполнено</div>
+</header>
+<div id="app"></div>
+<script>
+const DATA = [
+  {week:"6–7 июня — Мировая экономика старт",items:[
+    {date:"6 июня, сб",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 1–15"},
+      {tag:"pt",label:"Португальский",text:"Повторение в перерывах"}
+    ]},
+    {date:"7 июня, вс",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 16–28"},
+      {tag:"en",label:"Английский",text:"Повторение вечером"}
+    ]}
+  ]},
+  {event:{type:"test",text:"Зачёт по английскому",date:"8 июня, вс — 11:00"},items:[
+    {date:"8 июня, вс",hours:"3–4 ч после зачёта",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 29–40"}
+    ]},
+    {date:"9 июня, пн",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 41–52"}
+    ]}
+  ]},
+  {event:{type:"course",text:"Защита курсовой",date:"10 июня, вт — 11:30"},items:[
+    {date:"10 июня, вт",hours:"3–4 ч после защиты",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 53–62"}
+    ]}
+  ]},
+  {week:"11–15 июня — Статистика + Маркетинг",items:[
+    {date:"11 июня, ср",hours:"5–6 ч",tasks:[
+      {tag:"stat",label:"Статистика",text:"Билеты 1–10"},
+      {tag:"mkt",label:"Маркетинг",text:"Билеты 1–12 (вечер)"}
+    ]},
+    {date:"12 июня, чт",hours:"5–6 ч",tasks:[
+      {tag:"stat",label:"Статистика",text:"Билеты 11–22"},
+      {tag:"mkt",label:"Маркетинг",text:"Билеты 13–25 (вечер)"}
+    ]},
+    {date:"13 июня, пт",hours:"5–6 ч",tasks:[
+      {tag:"stat",label:"Статистика",text:"Билеты 23–32"},
+      {tag:"mkt",label:"Маркетинг",text:"Билеты 26–38 (вечер)"}
+    ]},
+    {date:"14 июня, сб",hours:"5–6 ч",tasks:[
+      {tag:"stat",label:"Статистика",text:"Билеты 33–37 + повтор всех формул"},
+      {tag:"mkt",label:"Маркетинг",text:"Билеты 39–55 (вечер)"}
+    ]},
+    {date:"15 июня, вс",hours:"5 ч",tasks:[
+      {tag:"stat",label:"Статистика",text:"Прогон всех 37 билетов"},
+      {tag:"mkt",label:"Маркетинг",text:"Практический блок — все кейсы (вечер)"}
+    ]}
+  ]},
+  {event:{type:"exam",text:"Экзамен по маркетингу 🎯",date:"16 июня, пн"},
+   week:"17–19 июня — Повтор МЭ",items:[
+    {date:"17 июня, вт",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Повтор билетов 14–45 (страны)"}
+    ]},
+    {date:"18 июня, ср",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Повтор билетов 46–62 (интеграция, организации)"}
+    ]},
+    {date:"19 июня, чт",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Финальный прогон всех 62 билетов"}
+    ]}
+  ]},
+  {event:{type:"exam",text:"Экзамен по статистике 🎯",date:"20 июня, пт"},
+   week:"21–22 июня — Финальный повтор МЭ",items:[
+    {date:"21 июня, сб",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 1–30 (устно)"}
+    ]},
+    {date:"22 июня, вс",hours:"5–6 ч",tasks:[
+      {tag:"we",label:"МЭ",text:"Билеты 31–62 (устно)"}
+    ]}
+  ]},
+  {event:{type:"exam",text:"Экзамен по мировой экономике 🎯",date:"23 июня, пн"},
+   week:"24–27 июня — Торговля + Португальский",items:[
+    {date:"24 июня, вт",hours:"5–6 ч",tasks:[
+      {tag:"trade",label:"Торговля",text:"Билеты 1–13"},
+      {tag:"pt",label:"Португальский",text:"Повторение (вечер)"}
+    ]}
+  ]},
+  {event:{type:"pt",text:"Португальский — экзамен 1",date:"25 июня, ср"},items:[
+    {date:"26 июня, чт",hours:"5–6 ч",tasks:[
+      {tag:"trade",label:"Торговля",text:"Билеты 14–26"},
+      {tag:"pt",label:"Португальский",text:"Финальное повторение (вечер)"}
+    ]}
+  ]},
+  {event:{type:"pt",text:"Португальский — экзамен 2",date:"27 июня, пт"},
+   week:"28–29 июня — Торговля финал",items:[
+    {date:"28 июня, сб",hours:"5–6 ч",tasks:[
+      {tag:"trade",label:"Торговля",text:"Билеты 27–34"}
+    ]},
+    {date:"29 июня, вс",hours:"5–6 ч",tasks:[
+      {tag:"trade",label:"Торговля",text:"Билеты 35–39"},
+      {tag:"trade",label:"Торговля",text:"Прогон всех 39 билетов"}
+    ]}
+  ]},
+  {event:{type:"exam",text:"Экзамен по торговле 🎯 Сессия закрыта!",date:"30 июня, пн"},items:[]}
+];
+
+let state = {};
+try{state=JSON.parse(localStorage.getItem('s25')||'{}');}catch(e){}
+
+function save(){localStorage.setItem('s25',JSON.stringify(state));}
+
+function render(){
+  const app = document.getElementById('app');
+  let html = '';
+  let taskId = 0;
+  let totalCount = 0;
+  let doneCount = 0;
+
+  DATA.forEach(section => {
+    if(section.event){
+      const e = section.event;
+      html += `<div class="event ev-${e.type}"><div><div>${e.text}</div><div class="ev-date">${e.date}</div></div></div>`;
+    }
+    if(section.week){
+      html += `<div class="week">${section.week}</div>`;
+    }
+    (section.items||[]).forEach(day => {
+      html += `<div class="card"><div class="day-head"><strong>${day.date}</strong><span>${day.hours}</span></div>`;
+      day.tasks.forEach(task => {
+        const id = 't'+taskId++;
+        const s = state[id]||{};
+        totalCount++;
+        if(s.done) doneCount++;
+        html += `<div class="task" onclick="toggle('${id}')">
+          <div class="cb ${s.done?'done':''}"></div>
+          <div class="task-body">
+            <div class="tag t-${task.tag}">${task.label}</div>
+            <div class="task-text ${s.done?'done':''}">${task.text}</div>
+          </div>
+        </div>
+        <div class="note-row">
+          <textarea placeholder="Заметка..." onchange="note('${id}',this.value)" onclick="event.stopPropagation()">${s.note||''}</textarea>
+        </div>`;
+      });
+      html += '</div>';
+    });
+  });
+
+  app.innerHTML = html;
+  document.getElementById('done').textContent = doneCount;
+  document.getElementById('total').textContent = totalCount;
+}
+
+function toggle(id){
+  if(!state[id]) state[id]={};
+  state[id].done = !state[id].done;
+  save(); render();
+}
+
+function note(id,val){
+  if(!state[id]) state[id]={};
+  state[id].note = val;
+  save();
+}
+
+render();
+</script>
+</body>
+</html>
