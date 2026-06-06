@@ -226,6 +226,16 @@ function toggleTicket(id){
   row.querySelector('.ticket-cb').className='ticket-cb'+(s.done?' done':'');
   row.querySelector('.ticket-num').className='ticket-num'+(s.done?' done':'');
   updateStats();
+  updateSubjectProg();
+}
+
+function updateSubjectProg(){
+  document.querySelectorAll('.subject-block').forEach(block=>{
+    const rows=block.querySelectorAll('.ticket-row');
+    const done=block.querySelectorAll('.ticket-cb.done').length;
+    const prog=block.querySelector('.subject-prog');
+    if(prog)prog.textContent=done+'/'+rows.length;
+  });
 }
 
 function toggleSubject(id){
@@ -311,6 +321,7 @@ function render(){
   });
   app.innerHTML=html;
   updateStats();
+  updateSubjectProg();
 }
 
 function saveNote(sid,val){
