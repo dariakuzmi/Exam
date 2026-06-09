@@ -18,22 +18,22 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
-header{background:var(--ink);padding:0;}
-.header-inner{display:flex;align-items:stretch;justify-content:space-between;max-width:720px;margin:0 auto;padding:0 16px;}
-.header-left{padding:18px 0;}
+header{background:var(--ink);position:sticky;top:0;z-index:100;}
+.header-inner{display:flex;align-items:stretch;justify-content:space-between;}
+.header-left{padding:18px 24px;border-right:1px solid rgba(255,255,255,0.08);}
 .header-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#faf7f2;letter-spacing:0.01em;}
 .header-sub{font-size:11px;color:rgba(250,247,242,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
-.header-right{display:flex;align-items:center;border-left:1px solid rgba(255,255,255,0.08);}
-.hstat{padding:18px 16px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.header-right{display:flex;align-items:center;}
+.hstat{padding:18px 16px;border-left:1px solid rgba(255,255,255,0.08);text-align:center;}
 .hstat-n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf7f2;line-height:1;}
 .hstat-l{font-size:9px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
-.header-date{padding:18px 16px;text-align:right;}
+.header-date{padding:18px 16px;border-left:1px solid rgba(255,255,255,0.08);text-align:right;}
 .header-date-n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf7f2;line-height:1;}
 .header-date-l{font-size:9px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
 .progress-line{height:2px;background:rgba(255,255,255,0.08);}
 .progress-fill{height:100%;background:var(--gold);transition:width 0.5s ease;}
-.subjects-bar{background:var(--ink);padding:0 16px 16px;max-width:720px;margin:0 auto;}
-.subjects-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.subjects-bar{background:var(--ink);padding:0 16px 16px;}
+.subjects-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:720px;margin:0 auto;}
 .subj-card{border-radius:10px;padding:12px 14px;border:0.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);}
 .subj-card.completed{border-color:var(--gold);}
 .subj-name{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:rgba(250,247,242,0.5);margin-bottom:6px;}
@@ -69,18 +69,20 @@ header{background:var(--ink);padding:0;}
 .tt-name{font-size:13px;color:var(--ink2);flex:1;}
 .tt-name.done{text-decoration:line-through;color:var(--ink3);}
 .tt-actions{display:flex;gap:4px;flex-shrink:0;}
-.tt-btn{font-size:11px;padding:3px 8px;border-radius:5px;border:0.5px solid var(--cream3);background:transparent;color:var(--ink3);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
-.today-add-btn{width:calc(100% - 32px);margin:10px 16px;padding:8px;border-radius:8px;border:0.5px dashed var(--cream3);background:transparent;color:var(--ink3);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;}
+.tt-btn{font-size:11px;padding:3px 8px;border-radius:5px;border:0.5px solid var(--cream3);background:transparent;color:var(--ink3);cursor:pointer;white-space:nowrap;}
+.today-add-btn{width:calc(100% - 32px);margin:10px 16px;padding:8px;border-radius:8px;border:0.5px dashed var(--cream3);background:transparent;color:var(--ink3);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;display:block;}
 .week-divider{display:flex;align-items:center;gap:12px;margin:28px 0 12px;}
 .week-divider::before,.week-divider::after{content:'';flex:1;height:0.5px;background:var(--cream3);}
 .week-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink3);white-space:nowrap;}
 .event-banner{border-radius:10px;padding:11px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;border:0.5px solid;}
 .ev-exam{background:var(--we-bg);border-color:var(--we-border);}
 .ev-pt{background:var(--pt-bg);border-color:var(--pt-border);}
+.ev-course{background:var(--trade-bg);border-color:var(--trade-border);}
 .ev-icon{font-size:18px;flex-shrink:0;}
 .ev-text{font-size:13px;font-weight:500;}
 .ev-exam .ev-text{color:var(--we);}
 .ev-pt .ev-text{color:var(--pt);}
+.ev-course .ev-text{color:var(--trade);}
 .ev-date{font-size:11px;color:var(--ink3);margin-top:1px;}
 .day-card{background:#fff;border:0.5px solid var(--cream3);border-radius:14px;margin-bottom:10px;overflow:hidden;}
 .day-card.is-today{border:1.5px solid var(--gold);}
@@ -154,7 +156,6 @@ header{background:var(--ink);padding:0;}
   </div>
   <div class="progress-line"><div class="progress-fill" id="prog" style="width:0%"></div></div>
 </header>
-
 <div class="subjects-bar">
   <div class="subjects-grid">
     <div class="subj-card" id="card-mkt">
@@ -191,12 +192,10 @@ header{background:var(--ink);padding:0;}
     </div>
   </div>
 </div>
-
 <div class="container">
   <div id="today-section"></div>
   <div id="schedule"></div>
 </div>
-
 <div class="modal-overlay" id="modal-edit">
   <div class="modal-box">
     <div class="modal-title">Редактировать билет</div>
@@ -208,7 +207,6 @@ header{background:var(--ink);padding:0;}
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" id="modal-postpone">
   <div class="modal-box">
     <div class="modal-title">Перенести билет</div>
@@ -220,12 +218,11 @@ header{background:var(--ink);padding:0;}
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" id="modal-add">
   <div class="modal-box">
     <div class="modal-title">Добавить билет</div>
     <div class="modal-sub" id="add-sub">Новый билет</div>
-    <div class="tag-select" id="tag-select">
+    <div class="tag-select">
       <div class="tag-opt" data-tag="we" onclick="selectTag('we')">МЭ</div>
       <div class="tag-opt" data-tag="stat" onclick="selectTag('stat')">Статистика</div>
       <div class="tag-opt" data-tag="mkt" onclick="selectTag('mkt')">Маркетинг</div>
@@ -238,92 +235,86 @@ header{background:var(--ink);padding:0;}
     </div>
   </div>
 </div>
-
 <script>
 const TOTALS={we:62,stat:37,mkt:55,trade:39};
 const EXAM_DATES={mkt:'2026-06-16',stat:'2026-06-20',we:'2026-06-23',trade:'2026-06-30'};
 
 const SCHEDULE=[
-  {week:"6–9 июня — мировая экономика старт",sections:[
-    {date:"6 июня, сб",dateKey:"2026-06-06",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]}
+  {week:"6–7 июня — мировая экономика",sections:[
+    {date:"6 июня, сб",dateKey:"2026-06-06",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"}]},
+      {tag:"pt",label:"Португальский",tickets:[{t:"Повторение в перерывах",r:true}]}
     ]},
-    {date:"7 июня, вс",dateKey:"2026-06-07",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"}]}
-    ]},
-    {date:"8 июня, пн",dateKey:"2026-06-08",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"}]}
-    ]},
-    {date:"9 июня, вт",dateKey:"2026-06-09",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"}]}
+    {date:"7 июня, вс",dateKey:"2026-06-07",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"}]},
+      {tag:"pt",label:"Английский",tickets:[{t:"Повторение вечером",r:true}]}
     ]}
   ]},
   {event:{type:"exam",icon:"📝",text:"Зачёт по английскому",date:"8 июня, вс — 11:00"},sections:[
-    {date:"8 июня, вс — после зачёта",dateKey:"2026-06-08b",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"}]}
+    {date:"8 июня, вс",dateKey:"2026-06-08",hours:"3–4 ч после зачёта",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"}]}
     ]},
-    {date:"9 июня, пн",dateKey:"2026-06-09",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"}]}
+    {date:"9 июня, пн",dateKey:"2026-06-09",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"}]}
     ]}
   ]},
-  {event:{type:"exam",icon:"📋",text:"Защита курсовой",date:"10 июня, вт — 11:30"},sections:[
-    {date:"10 июня, вт",dateKey:"2026-06-10",hours:"после защиты",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"}]}
+  {event:{type:"course",icon:"📋",text:"Защита курсовой",date:"10 июня, вт — 11:30"},sections:[
+    {date:"10 июня, вт",dateKey:"2026-06-10",hours:"3–4 ч после защиты",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"},{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"}]}
     ]}
   ]},
   {week:"11–15 июня — МЭ финал + статистика + маркетинг",sections:[
-    {date:"11 июня, ср",dateKey:"2026-06-11",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"},{t:"Билет 56"},{t:"Билет 57"},{t:"Билет 58"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]}
+    {date:"11 июня, ср",dateKey:"2026-06-11",hours:"5–6 ч",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"},{t:"Билет 56"},{t:"Билет 57"},{t:"Билет 58"},{t:"Билет 59"},{t:"Билет 60"},{t:"Билет 61"},{t:"Билет 62"}]},
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"}]}
     ]},
-    {date:"12 июня, чт",dateKey:"2026-06-12",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 59"},{t:"Билет 60"},{t:"Билет 61"},{t:"Билет 62"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"}]}
+    {date:"12 июня, чт",dateKey:"2026-06-12",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"}]}
     ]},
-    {date:"13 июня, пт",dateKey:"2026-06-13",hours:"",subjects:[
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"}]}
+    {date:"13 июня, пт",dateKey:"2026-06-13",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}]}
     ]},
-    {date:"14 июня, сб",dateKey:"2026-06-14",hours:"",subjects:[
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Повтор всех формул",r:true}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"},{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"},{t:"Практический блок",r:true}]}
+    {date:"14 июня, сб",dateKey:"2026-06-14",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"}]}
     ]},
-    {date:"15 июня, вс",dateKey:"2026-06-15",hours:"",subjects:[
-      {tag:"stat",label:"Статистика",tickets:[{t:"Прогон всех 37 билетов",r:true}]},
-      {tag:"we",label:"МЭ",tickets:[{t:"Повтор: КНР, МЭИ, ВТО",r:true}]}
+    {date:"15 июня, вс",dateKey:"2026-06-15",hours:"5–6 ч",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Повтор всех формул",r:true}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"},{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"},{t:"Практический блок",r:true}]}
     ]}
   ]},
   {event:{type:"exam",icon:"🎯",text:"Экзамен по маркетингу",date:"16 июня, пн"},sections:[]},
   {week:"17–19 июня — повтор МЭ",sections:[
-    {date:"17 июня, вт",dateKey:"2026-06-17",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 1–30",r:true}]}]},
-    {date:"18 июня, ср",dateKey:"2026-06-18",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 31–62",r:true}]}]},
-    {date:"19 июня, чт",dateKey:"2026-06-19",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Финальный прогон всех 62 билетов",r:true}]}]}
+    {date:"17 июня, вт",dateKey:"2026-06-17",hours:"5–6 ч",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 1–30",r:true}]}]},
+    {date:"18 июня, ср",dateKey:"2026-06-18",hours:"5–6 ч",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 31–62",r:true}]}]},
+    {date:"19 июня, чт",dateKey:"2026-06-19",hours:"5–6 ч",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Финальный прогон всех 62 билетов",r:true}]}]}
   ]},
   {event:{type:"exam",icon:"🎯",text:"Экзамен по статистике",date:"20 июня, пт"},sections:[]},
   {week:"21–22 июня — финальный повтор МЭ",sections:[
-    {date:"21 июня, сб",dateKey:"2026-06-21",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Билеты 1–30 устно",r:true}]}]},
-    {date:"22 июня, вс",dateKey:"2026-06-22",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Билеты 31–62 устно",r:true}]}]}
+    {date:"21 июня, сб",dateKey:"2026-06-21",hours:"5–6 ч",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Билеты 1–30 устно",r:true}]}]},
+    {date:"22 июня, вс",dateKey:"2026-06-22",hours:"5–6 ч",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Билеты 31–62 устно",r:true}]}]}
   ]},
   {event:{type:"exam",icon:"🎯",text:"Экзамен по мировой экономике",date:"23 июня, пн"},sections:[]},
-  {week:"24–29 июня — торговля",sections:[
-    {date:"24 июня, вт",dateKey:"2026-06-24",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"}]}
+  {week:"24–27 июня — торговля + португальский",sections:[
+    {date:"24 июня, вт",dateKey:"2026-06-24",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"}]},
+      {tag:"pt",label:"Португальский",tickets:[{t:"Повторение вечером",r:true}]}
+    ]}
+  ]},
+  {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 1",date:"25 июня, ср"},sections:[
+    {date:"26 июня, чт",dateKey:"2026-06-26",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"}]},
+      {tag:"pt",label:"Португальский",tickets:[{t:"Финальное повторение вечером",r:true}]}
+    ]}
+  ]},
+  {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 2",date:"27 июня, пт"},sections:[
+    {date:"28 июня, сб",dateKey:"2026-06-28",hours:"5–6 ч",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"}]}
     ]},
-    {date:"25 июня, ср",dateKey:"2026-06-25",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"}]}
-    ]},
-    {date:"26 июня, чт",dateKey:"2026-06-26",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"}]}
-    ]},
-    {date:"27 июня, пт",dateKey:"2026-06-27",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"}]}
-    ]},
-    {date:"28 июня, сб",dateKey:"2026-06-28",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"}]}
-    ]},
-    {date:"29 июня, вс",dateKey:"2026-06-29",hours:"",subjects:[
+    {date:"29 июня, вс",dateKey:"2026-06-29",hours:"5–6 ч",subjects:[
       {tag:"trade",label:"Торговля",tickets:[{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Прогон всех 39 билетов",r:true}]}
     ]}
   ]},
@@ -333,7 +324,6 @@ const SCHEDULE=[
 let state={};
 try{state=JSON.parse(localStorage.getItem('sess2026a')||'{}');}catch(e){}
 function save(){localStorage.setItem('sess2026a',JSON.stringify(state));}
-
 let editTarget=null,postponeTarget=null,addTarget=null,selectedTag='we',selectedDate=null;
 
 function getTodayKey(){const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
