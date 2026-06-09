@@ -18,34 +18,60 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
-header{background:var(--ink);padding:18px 24px;}
+header{background:var(--ink);padding:0;}
+.header-inner{display:flex;align-items:stretch;justify-content:space-between;max-width:720px;margin:0 auto;padding:0 16px;}
+.header-left{padding:18px 0;}
 .header-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#faf7f2;letter-spacing:0.01em;}
 .header-sub{font-size:11px;color:rgba(250,247,242,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-top:2px;}
-
-/* SUBJECT CARDS */
-.subjects-bar{background:var(--ink);padding:0 16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:720px;margin:0 auto;}
-.subj-card{border-radius:12px;padding:14px;border:0.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);position:relative;overflow:hidden;}
+.header-right{display:flex;align-items:center;border-left:1px solid rgba(255,255,255,0.08);}
+.hstat{padding:18px 16px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.hstat-n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf7f2;line-height:1;}
+.hstat-l{font-size:9px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+.header-date{padding:18px 16px;text-align:right;}
+.header-date-n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf7f2;line-height:1;}
+.header-date-l{font-size:9px;color:rgba(250,247,242,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px;}
+.progress-line{height:2px;background:rgba(255,255,255,0.08);}
+.progress-fill{height:100%;background:var(--gold);transition:width 0.5s ease;}
+.subjects-bar{background:var(--ink);padding:0 16px 16px;max-width:720px;margin:0 auto;}
+.subjects-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.subj-card{border-radius:10px;padding:12px 14px;border:0.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);}
 .subj-card.completed{border-color:var(--gold);}
-.subj-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.subj-icon{font-size:18px;}
-.subj-check{font-size:16px;display:none;}
-.subj-card.completed .subj-check{display:block;}
-.subj-card.completed .subj-icon{display:none;}
-.subj-name{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:rgba(250,247,242,0.5);margin-bottom:4px;}
-.subj-counts{display:flex;align-items:baseline;gap:6px;}
-.subj-done{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#faf7f2;line-height:1;}
-.subj-total{font-size:12px;color:rgba(250,247,242,0.35);}
-.subj-bar{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:10px;overflow:hidden;}
-.subj-bar-fill{height:100%;border-radius:2px;transition:width 0.4s ease;}
+.subj-name{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:rgba(250,247,242,0.5);margin-bottom:6px;}
+.subj-tickets-num{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:#faf7f2;line-height:1;}
+.subj-tickets-lbl{font-size:11px;color:rgba(250,247,242,0.35);margin-top:2px;margin-bottom:6px;}
+.subj-prog-bar{height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+.subj-prog-fill{height:100%;border-radius:2px;transition:width 0.4s ease;}
 .fill-we{background:var(--we);}
 .fill-stat{background:var(--stat);}
 .fill-trade{background:var(--trade);}
 .fill-mkt{background:var(--mkt);}
-.subj-congrats{font-size:10px;color:var(--gold);margin-top:6px;font-style:italic;display:none;}
+.subj-days-row{display:flex;align-items:center;gap:5px;padding-top:6px;border-top:0.5px solid rgba(255,255,255,0.08);}
+.subj-days-num{font-size:12px;font-weight:500;color:#faf7f2;}
+.subj-days-lbl{font-size:11px;color:rgba(250,247,242,0.35);}
+.subj-congrats{font-size:10px;color:var(--gold);margin-top:4px;font-style:italic;display:none;}
 .subj-card.completed .subj-congrats{display:block;}
-
 .container{max-width:720px;margin:0 auto;padding:0 16px 80px;}
-.week-divider{display:flex;align-items:center;gap:12px;margin:32px 0 14px;}
+.today-banner{background:#fff;border:1.5px solid var(--gold);border-radius:14px;margin:16px 0 10px;overflow:hidden;}
+.today-banner-head{background:var(--cream2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--cream3);}
+.today-banner-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);}
+.today-banner-progress{font-size:11px;color:var(--ink3);}
+.today-task{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:0.5px solid var(--cream2);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.today-task:last-of-type{border-bottom:none;}
+.today-task:active{background:var(--cream);}
+.tt-cb{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--cream3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.tt-cb.done{background:var(--ink);border-color:var(--ink);}
+.tt-cb.done::after{content:'✓';color:#fff;font-size:10px;font-weight:600;}
+.tt-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;border:0.5px solid;flex-shrink:0;}
+.tt-we{background:var(--we-bg);color:var(--we);border-color:var(--we-border);}
+.tt-stat{background:var(--stat-bg);color:var(--stat);border-color:var(--stat-border);}
+.tt-trade{background:var(--trade-bg);color:var(--trade);border-color:var(--trade-border);}
+.tt-mkt{background:var(--mkt-bg);color:var(--mkt);border-color:var(--mkt-border);}
+.tt-name{font-size:13px;color:var(--ink2);flex:1;}
+.tt-name.done{text-decoration:line-through;color:var(--ink3);}
+.tt-actions{display:flex;gap:4px;flex-shrink:0;}
+.tt-btn{font-size:11px;padding:3px 8px;border-radius:5px;border:0.5px solid var(--cream3);background:transparent;color:var(--ink3);cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+.today-add-btn{width:calc(100% - 32px);margin:10px 16px;padding:8px;border-radius:8px;border:0.5px dashed var(--cream3);background:transparent;color:var(--ink3);font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;}
+.week-divider{display:flex;align-items:center;gap:12px;margin:28px 0 12px;}
 .week-divider::before,.week-divider::after{content:'';flex:1;height:0.5px;background:var(--cream3);}
 .week-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink3);white-space:nowrap;}
 .event-banner{border-radius:10px;padding:11px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;border:0.5px solid;}
@@ -57,8 +83,10 @@ header{background:var(--ink);padding:18px 24px;}
 .ev-pt .ev-text{color:var(--pt);}
 .ev-date{font-size:11px;color:var(--ink3);margin-top:1px;}
 .day-card{background:#fff;border:0.5px solid var(--cream3);border-radius:14px;margin-bottom:10px;overflow:hidden;}
+.day-card.is-today{border:1.5px solid var(--gold);}
 .day-head{background:var(--cream2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--cream3);}
 .day-date{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--ink);}
+.day-today-badge{font-size:9px;font-weight:500;background:var(--gold);color:#fff;border-radius:4px;padding:2px 6px;text-transform:uppercase;letter-spacing:0.06em;margin-left:8px;}
 .day-hours{font-size:11px;color:var(--ink3);}
 .subject-block{border-bottom:0.5px solid var(--cream2);}
 .subject-block:last-child{border-bottom:none;}
@@ -76,329 +104,388 @@ header{background:var(--ink);padding:18px 24px;}
 .chevron.open{transform:rotate(180deg);}
 .ticket-list{padding:0 16px 10px;display:none;}
 .ticket-list.open{display:block;}
-.ticket-note-area{padding:0 0 8px 28px;}
-.ticket-note-area textarea{width:100%;border:0.5px solid var(--cream3);border-radius:8px;padding:6px 10px;font-size:12px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);resize:none;min-height:44px;outline:none;transition:border-color 0.15s;}
-.ticket-note-area textarea:focus{border-color:var(--gold);}
-.ticket-note-area textarea::placeholder{color:var(--ink3);}
 .ticket-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:0.5px solid var(--cream2);cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .ticket-row:last-of-type{border-bottom:none;}
 .ticket-row:active{opacity:0.7;}
+.ticket-row.is-postponed{background:#fffbf0;}
 .ticket-cb{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--cream3);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
 .ticket-cb.done{background:var(--ink);border-color:var(--ink);}
 .ticket-cb.done::after{content:'✓';color:#fff;font-size:10px;font-weight:600;}
 .ticket-num{font-size:13px;color:var(--ink2);flex:1;}
 .ticket-num.done{text-decoration:line-through;color:var(--ink3);}
 .ticket-num.is-repeat{color:var(--ink3);font-style:italic;}
-.ticket-edit-btn{font-size:11px;color:var(--ink3);padding:2px 6px;border-radius:4px;border:0.5px solid var(--cream3);background:transparent;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(28,26,22,0.5);z-index:200;align-items:flex-end;justify-content:center;}
-.modal-bg.open{display:flex;}
-.modal{background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:500px;}
-.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:16px;color:var(--ink);}
-.modal input{width:100%;border:0.5px solid var(--cream3);border-radius:10px;padding:12px 14px;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);outline:none;margin-bottom:12px;}
-.modal input:focus{border-color:var(--gold);}
+.postponed-badge{font-size:10px;background:#fff3cd;color:#856404;border:0.5px solid #ffc107;border-radius:4px;padding:1px 5px;margin-left:4px;}
+.ticket-actions{display:flex;gap:3px;flex-shrink:0;opacity:0;transition:opacity 0.15s;}
+.ticket-row:hover .ticket-actions{opacity:1;}
+.tick-btn{font-size:10px;padding:2px 6px;border-radius:4px;border:0.5px solid var(--cream3);background:transparent;color:var(--ink3);cursor:pointer;white-space:nowrap;}
+.add-ticket-btn{width:100%;margin-top:6px;padding:6px;border-radius:7px;border:0.5px dashed var(--cream3);background:transparent;color:var(--ink3);font-size:11px;font-family:'Inter',sans-serif;cursor:pointer;text-align:center;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,26,22,0.5);z-index:300;align-items:flex-end;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#fff;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:500px;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:4px;color:var(--ink);}
+.modal-sub{font-size:12px;color:var(--ink3);margin-bottom:16px;}
+.modal-input{width:100%;border:0.5px solid var(--cream3);border-radius:10px;padding:11px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);outline:none;margin-bottom:12px;}
+.modal-input:focus{border-color:var(--gold);}
+.date-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px;max-height:200px;overflow-y:auto;}
+.date-opt{padding:8px 6px;text-align:center;border-radius:8px;border:0.5px solid var(--cream3);font-size:12px;cursor:pointer;color:var(--ink3);}
+.date-opt.sel{background:var(--ink);color:#faf7f2;border-color:var(--ink);}
 .modal-btns{display:flex;gap:8px;}
-.btn-save{flex:1;background:var(--ink);color:#faf7f2;border:none;border-radius:10px;padding:13px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
-.btn-cancel{background:transparent;color:var(--ink3);border:0.5px solid var(--cream3);border-radius:10px;padding:13px 16px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
+.btn-save{flex:1;background:var(--ink);color:#faf7f2;border:none;border-radius:10px;padding:12px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
+.btn-cancel{background:transparent;color:var(--ink3);border:0.5px solid var(--cream3);border-radius:10px;padding:12px 16px;font-size:14px;font-family:'Inter',sans-serif;cursor:pointer;}
+.tag-select{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.tag-opt{padding:5px 12px;border-radius:20px;border:0.5px solid var(--cream3);font-size:12px;cursor:pointer;color:var(--ink3);}
+.tag-opt.sel-we{background:var(--we-bg);color:var(--we);border-color:var(--we-border);}
+.tag-opt.sel-stat{background:var(--stat-bg);color:var(--stat);border-color:var(--stat-border);}
+.tag-opt.sel-trade{background:var(--trade-bg);color:var(--trade);border-color:var(--trade-border);}
+.tag-opt.sel-mkt{background:var(--mkt-bg);color:var(--mkt);border-color:var(--mkt-border);}
 </style>
 </head>
 <body>
 <header>
-  <div class="header-title">Сессия · Июнь 2026</div>
-  <div class="header-sub">Расписание подготовки</div>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-title">Сессия · Июнь 2026</div>
+      <div class="header-sub">Расписание подготовки</div>
+    </div>
+    <div class="header-right">
+      <div class="hstat"><div class="hstat-n" id="h-done">0</div><div class="hstat-l">готово</div></div>
+      <div class="header-date"><div class="header-date-n" id="h-today-date">—</div><div class="header-date-l">сегодня</div></div>
+    </div>
+  </div>
+  <div class="progress-line"><div class="progress-fill" id="prog" style="width:0%"></div></div>
 </header>
 
 <div class="subjects-bar">
-  <div class="subj-card" id="card-we">
-    <div class="subj-card-top">
-      <div class="subj-icon">🌍</div>
-      <div class="subj-check">✨</div>
+  <div class="subjects-grid">
+    <div class="subj-card" id="card-mkt">
+      <div class="subj-name">Маркетинг</div>
+      <div class="subj-tickets-num" id="mkt-done">0</div>
+      <div class="subj-tickets-lbl">из 55 билетов</div>
+      <div class="subj-prog-bar"><div class="subj-prog-fill fill-mkt" id="mkt-bar" style="width:0%"></div></div>
+      <div class="subj-days-row"><div class="subj-days-num" id="mkt-days">—</div><div class="subj-days-lbl">· 16 июня</div></div>
+      <div class="subj-congrats">Маркетолог готова! 🎉</div>
     </div>
-    <div class="subj-name">Мировая экономика</div>
-    <div class="subj-counts">
-      <div class="subj-done" id="we-done">0</div>
-      <div class="subj-total">/ 62</div>
+    <div class="subj-card" id="card-stat">
+      <div class="subj-name">Статистика</div>
+      <div class="subj-tickets-num" id="stat-done">0</div>
+      <div class="subj-tickets-lbl">из 37 билетов</div>
+      <div class="subj-prog-bar"><div class="subj-prog-fill fill-stat" id="stat-bar" style="width:0%"></div></div>
+      <div class="subj-days-row"><div class="subj-days-num" id="stat-days">—</div><div class="subj-days-lbl">· 20 июня</div></div>
+      <div class="subj-congrats">Все формулы знаешь! 🎉</div>
     </div>
-    <div class="subj-bar"><div class="subj-bar-fill fill-we" id="we-bar" style="width:0%"></div></div>
-    <div class="subj-congrats">Отлично подготовилась! 🎉</div>
-  </div>
-  <div class="subj-card" id="card-stat">
-    <div class="subj-card-top">
-      <div class="subj-icon">📊</div>
-      <div class="subj-check">✨</div>
+    <div class="subj-card" id="card-we">
+      <div class="subj-name">Мировая экономика</div>
+      <div class="subj-tickets-num" id="we-done">0</div>
+      <div class="subj-tickets-lbl">из 62 билетов</div>
+      <div class="subj-prog-bar"><div class="subj-prog-fill fill-we" id="we-bar" style="width:0%"></div></div>
+      <div class="subj-days-row"><div class="subj-days-num" id="we-days">—</div><div class="subj-days-lbl">· 23 июня</div></div>
+      <div class="subj-congrats">Отлично подготовилась! 🎉</div>
     </div>
-    <div class="subj-name">Статистика</div>
-    <div class="subj-counts">
-      <div class="subj-done" id="stat-done">0</div>
-      <div class="subj-total">/ 37</div>
+    <div class="subj-card" id="card-trade">
+      <div class="subj-name">Торговля</div>
+      <div class="subj-tickets-num" id="trade-done">0</div>
+      <div class="subj-tickets-lbl">из 39 билетов</div>
+      <div class="subj-prog-bar"><div class="subj-prog-fill fill-trade" id="trade-bar" style="width:0%"></div></div>
+      <div class="subj-days-row"><div class="subj-days-num" id="trade-days">—</div><div class="subj-days-lbl">· 30 июня</div></div>
+      <div class="subj-congrats">Сессия закрыта! 🏆</div>
     </div>
-    <div class="subj-bar"><div class="subj-bar-fill fill-stat" id="stat-bar" style="width:0%"></div></div>
-    <div class="subj-congrats">Все формулы знаешь! 🎉</div>
-  </div>
-  <div class="subj-card" id="card-mkt">
-    <div class="subj-card-top">
-      <div class="subj-icon">📢</div>
-      <div class="subj-check">✨</div>
-    </div>
-    <div class="subj-name">Маркетинг</div>
-    <div class="subj-counts">
-      <div class="subj-done" id="mkt-done">0</div>
-      <div class="subj-total">/ 55</div>
-    </div>
-    <div class="subj-bar"><div class="subj-bar-fill fill-mkt" id="mkt-bar" style="width:0%"></div></div>
-    <div class="subj-congrats">Маркетолог готова! 🎉</div>
-  </div>
-  <div class="subj-card" id="card-trade">
-    <div class="subj-card-top">
-      <div class="subj-icon">🌐</div>
-      <div class="subj-check">✨</div>
-    </div>
-    <div class="subj-name">Торговля</div>
-    <div class="subj-counts">
-      <div class="subj-done" id="trade-done">0</div>
-      <div class="subj-total">/ 39</div>
-    </div>
-    <div class="subj-bar"><div class="subj-bar-fill fill-trade" id="trade-bar" style="width:0%"></div></div>
-    <div class="subj-congrats">Сессия закрыта! 🏆</div>
   </div>
 </div>
 
-<div class="container"><div id="schedule"></div></div>
+<div class="container">
+  <div id="today-section"></div>
+  <div id="schedule"></div>
+</div>
 
-<div class="modal-bg" id="modal">
-  <div class="modal">
+<div class="modal-overlay" id="modal-edit">
+  <div class="modal-box">
     <div class="modal-title">Редактировать билет</div>
-    <input type="text" id="modal-input" placeholder="Название билета">
+    <div class="modal-sub">Измени название билета</div>
+    <input type="text" class="modal-input" id="edit-input" placeholder="Название билета">
     <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="btn-save" onclick="saveModal()">Сохранить</button>
+      <button class="btn-cancel" onclick="closeModal('modal-edit')">Отмена</button>
+      <button class="btn-save" onclick="saveEdit()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-postpone">
+  <div class="modal-box">
+    <div class="modal-title">Перенести билет</div>
+    <div class="modal-sub" id="postpone-sub">Выбери дату</div>
+    <div class="date-grid" id="date-grid"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-postpone')">Отмена</button>
+      <button class="btn-save" onclick="savePostpone()">Перенести</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-add">
+  <div class="modal-box">
+    <div class="modal-title">Добавить билет</div>
+    <div class="modal-sub" id="add-sub">Новый билет</div>
+    <div class="tag-select" id="tag-select">
+      <div class="tag-opt" data-tag="we" onclick="selectTag('we')">МЭ</div>
+      <div class="tag-opt" data-tag="stat" onclick="selectTag('stat')">Статистика</div>
+      <div class="tag-opt" data-tag="mkt" onclick="selectTag('mkt')">Маркетинг</div>
+      <div class="tag-opt" data-tag="trade" onclick="selectTag('trade')">Торговля</div>
+    </div>
+    <input type="text" class="modal-input" id="add-input" placeholder="Название билета">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal('modal-add')">Отмена</button>
+      <button class="btn-save" onclick="saveAdd()">Добавить</button>
     </div>
   </div>
 </div>
 
 <script>
 const TOTALS={we:62,stat:37,mkt:55,trade:39};
+const EXAM_DATES={mkt:'2026-06-16',stat:'2026-06-20',we:'2026-06-23',trade:'2026-06-30'};
 
 const SCHEDULE=[
   {week:"6–9 июня — мировая экономика старт",sections:[
-    {date:"6 июня, сб",hours:"",subjects:[
+    {date:"6 июня, сб",dateKey:"2026-06-06",hours:"",subjects:[
       {tag:"we",label:"МЭ",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]}
     ]},
-    {date:"7 июня, вс",hours:"",subjects:[
+    {date:"7 июня, вс",dateKey:"2026-06-07",hours:"",subjects:[
       {tag:"we",label:"МЭ",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"}]}
     ]},
-    {date:"8 июня, пн",hours:"",subjects:[
+    {date:"8 июня, пн",dateKey:"2026-06-08",hours:"",subjects:[
       {tag:"we",label:"МЭ",tickets:[{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"}]}
     ]},
-    {date:"9 июня, вт",hours:"",subjects:[
+    {date:"9 июня, вт",dateKey:"2026-06-09",hours:"",subjects:[
       {tag:"we",label:"МЭ",tickets:[{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"}]}
     ]}
   ]},
-  {week:"10–14 июня — МЭ + маркетинг + статистика",sections:[
-    {date:"10 июня, ср",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]}
+  {event:{type:"exam",icon:"📝",text:"Зачёт по английскому",date:"8 июня, вс — 11:00"},sections:[
+    {date:"8 июня, вс — после зачёта",dateKey:"2026-06-08b",hours:"",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"}]}
     ]},
-    {date:"11 июня, чт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"}]}
-    ]},
-    {date:"12 июня, пт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"}]}
-    ]},
-    {date:"13 июня, сб",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"}]}
-    ]},
-    {date:"14 июня, вс",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 45"},{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}]}
+    {date:"9 июня, пн",dateKey:"2026-06-09",hours:"",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"}]}
     ]}
   ]},
-  {week:"15–16 июня — повтор маркетинга + экзамен",sections:[
-    {date:"15 июня, пн",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"}]},
-      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Повтор всех 55 билетов",r:true}]}
+  {event:{type:"exam",icon:"📋",text:"Защита курсовой",date:"10 июня, вт — 11:30"},sections:[
+    {date:"10 июня, вт",dateKey:"2026-06-10",hours:"после защиты",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"}]}
     ]}
   ]},
-  {event:{type:"exam",icon:"🎯",text:"Экзамен по маркетингу",date:"16 июня, вт"},sections:[
-    {date:"16 июня, вт",hours:"после экзамена",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"}]}
-    ]}
-  ]},
-  {week:"17–19 июня — финал МЭ + статистика",sections:[
-    {date:"17 июня, ср",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Билет 54"},{t:"Билет 55"},{t:"Билет 56"},{t:"Билет 57"},{t:"Билет 58"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Повтор статистики",r:true}]}
+  {week:"11–15 июня — МЭ финал + статистика + маркетинг",sections:[
+    {date:"11 июня, ср",dateKey:"2026-06-11",hours:"",subjects:[
+      {tag:"we",label:"МЭ",tickets:[{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"},{t:"Билет 56"},{t:"Билет 57"},{t:"Билет 58"}]},
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"}]}
     ]},
-    {date:"18 июня, чт",hours:"",subjects:[
+    {date:"12 июня, чт",dateKey:"2026-06-12",hours:"",subjects:[
       {tag:"we",label:"МЭ",tickets:[{t:"Билет 59"},{t:"Билет 60"},{t:"Билет 61"},{t:"Билет 62"}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Повтор всех 37 билетов",r:true}]}
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"}]}
     ]},
-    {date:"19 июня, пт",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 1–30",r:true}]},
-      {tag:"stat",label:"Статистика",tickets:[{t:"Финальный повтор формул",r:true}]}
+    {date:"13 июня, пт",dateKey:"2026-06-13",hours:"",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"}]}
+    ]},
+    {date:"14 июня, сб",dateKey:"2026-06-14",hours:"",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Повтор всех формул",r:true}]},
+      {tag:"mkt",label:"Маркетинг",tickets:[{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Билет 40"},{t:"Билет 41"},{t:"Билет 42"},{t:"Билет 43"},{t:"Билет 44"},{t:"Билет 45"},{t:"Билет 46"},{t:"Билет 47"},{t:"Билет 48"},{t:"Билет 49"},{t:"Билет 50"},{t:"Билет 51"},{t:"Билет 52"},{t:"Билет 53"},{t:"Билет 54"},{t:"Билет 55"},{t:"Практический блок",r:true}]}
+    ]},
+    {date:"15 июня, вс",dateKey:"2026-06-15",hours:"",subjects:[
+      {tag:"stat",label:"Статистика",tickets:[{t:"Прогон всех 37 билетов",r:true}]},
+      {tag:"we",label:"МЭ",tickets:[{t:"Повтор: КНР, МЭИ, ВТО",r:true}]}
     ]}
   ]},
-  {event:{type:"exam",icon:"🎯",text:"Экзамен по статистике",date:"20 июня, сб"},sections:[
-    {date:"20 июня, сб",hours:"после экзамена",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 31–62",r:true}]}
-    ]}
+  {event:{type:"exam",icon:"🎯",text:"Экзамен по маркетингу",date:"16 июня, пн"},sections:[]},
+  {week:"17–19 июня — повтор МЭ",sections:[
+    {date:"17 июня, вт",dateKey:"2026-06-17",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 1–30",r:true}]}]},
+    {date:"18 июня, ср",dateKey:"2026-06-18",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 31–62",r:true}]}]},
+    {date:"19 июня, чт",dateKey:"2026-06-19",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Финальный прогон всех 62 билетов",r:true}]}]}
   ]},
+  {event:{type:"exam",icon:"🎯",text:"Экзамен по статистике",date:"20 июня, пт"},sections:[]},
   {week:"21–22 июня — финальный повтор МЭ",sections:[
-    {date:"21 июня, вс",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 1–30 устно",r:true}]}
-    ]},
-    {date:"22 июня, пн",hours:"",subjects:[
-      {tag:"we",label:"МЭ",tickets:[{t:"Повтор билетов 31–62 устно",r:true}]}
-    ]}
+    {date:"21 июня, сб",dateKey:"2026-06-21",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Билеты 1–30 устно",r:true}]}]},
+    {date:"22 июня, вс",dateKey:"2026-06-22",hours:"",subjects:[{tag:"we",label:"МЭ",tickets:[{t:"Билеты 31–62 устно",r:true}]}]}
   ]},
-  {event:{type:"exam",icon:"🎯",text:"Экзамен по мировой экономике",date:"23 июня, вт"},sections:[
-    {date:"23 июня, вт",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"}]}
-    ]}
-  ]},
+  {event:{type:"exam",icon:"🎯",text:"Экзамен по мировой экономике",date:"23 июня, пн"},sections:[]},
   {week:"24–29 июня — торговля",sections:[
-    {date:"24 июня, ср",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"}]}
+    {date:"24 июня, вт",dateKey:"2026-06-24",hours:"",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 1"},{t:"Билет 2"},{t:"Билет 3"},{t:"Билет 4"},{t:"Билет 5"},{t:"Билет 6"},{t:"Билет 7"},{t:"Билет 8"},{t:"Билет 9"},{t:"Билет 10"},{t:"Билет 11"},{t:"Билет 12"},{t:"Билет 13"}]}
+    ]},
+    {date:"25 июня, ср",dateKey:"2026-06-25",hours:"после экзамена",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 14"},{t:"Билет 15"},{t:"Билет 16"}]}
+    ]},
+    {date:"26 июня, чт",dateKey:"2026-06-26",hours:"",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"},{t:"Билет 23"},{t:"Билет 24"}]}
+    ]},
+    {date:"27 июня, пт",dateKey:"2026-06-27",hours:"после экзамена",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 25"},{t:"Билет 26"},{t:"Билет 27"}]}
+    ]},
+    {date:"28 июня, сб",dateKey:"2026-06-28",hours:"",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"},{t:"Билет 34"}]}
+    ]},
+    {date:"29 июня, вс",dateKey:"2026-06-29",hours:"",subjects:[
+      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Прогон всех 39 билетов",r:true}]}
     ]}
   ]},
-  {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 1",date:"25 июня, чт"},sections:[
-    {date:"25 июня, чт",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 12"},{t:"Билет 13"},{t:"Билет 14"}]}
-    ]},
-    {date:"26 июня, пт",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 15"},{t:"Билет 16"},{t:"Билет 17"},{t:"Билет 18"},{t:"Билет 19"},{t:"Билет 20"},{t:"Билет 21"},{t:"Билет 22"}]}
-    ]}
-  ]},
-  {event:{type:"pt",icon:"🇵🇹",text:"Португальский — экзамен 2",date:"27 июня, сб"},sections:[
-    {date:"27 июня, сб",hours:"после экзамена",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 23"},{t:"Билет 24"},{t:"Билет 25"}]}
-    ]},
-    {date:"28 июня, вс",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 26"},{t:"Билет 27"},{t:"Билет 28"},{t:"Билет 29"},{t:"Билет 30"},{t:"Билет 31"},{t:"Билет 32"},{t:"Билет 33"}]}
-    ]},
-    {date:"29 июня, пн",hours:"",subjects:[
-      {tag:"trade",label:"Торговля",tickets:[{t:"Билет 34"},{t:"Билет 35"},{t:"Билет 36"},{t:"Билет 37"},{t:"Билет 38"},{t:"Билет 39"},{t:"Повтор всех 39 билетов",r:true}]}
-    ]}
-  ]},
-  {event:{type:"exam",icon:"🏆",text:"Экзамен по торговле · Сессия закрыта!",date:"30 июня, вт"},sections:[]}
+  {event:{type:"exam",icon:"🏆",text:"Экзамен по торговле · Сессия закрыта!",date:"30 июня, пн"},sections:[]}
 ];
 
 let state={};
-try{state=JSON.parse(localStorage.getItem('sess2026d')||'{}');}catch(e){}
-function save(){localStorage.setItem('sess2026d',JSON.stringify(state));}
-let editTarget=null;
+try{state=JSON.parse(localStorage.getItem('sess2026a')||'{}');}catch(e){}
+function save(){localStorage.setItem('sess2026a',JSON.stringify(state));}
 
-function toggleTicket(id,tag,isRepeat){
-  if(!state[id])state[id]={};
-  state[id].done=!state[id].done;
-  state[id].tag=tag;
-  state[id].repeat=isRepeat;
-  save();
-  const row=document.getElementById('tr-'+id);
-  if(!row)return;
-  const s=state[id];
-  row.querySelector('.ticket-cb').className='ticket-cb'+(s.done?' done':'');
-  const nm=row.querySelector('.ticket-num');
-  nm.className='ticket-num'+(s.done?' done':'')+(isRepeat?' is-repeat':'');
-  updateSubjectStats();
-  updateSubjectProg();
+let editTarget=null,postponeTarget=null,addTarget=null,selectedTag='we',selectedDate=null;
+
+function getTodayKey(){const n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
+function getTodayLabel(){const n=new Date();const m=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];return n.getDate()+' '+m[n.getMonth()];}
+function daysUntil(d){const t=new Date();t.setHours(0,0,0,0);const g=new Date(d);g.setHours(0,0,0,0);return Math.round((g-t)/(1000*60*60*24));}
+function formatDays(d){if(d<0)return 'прошёл';if(d===0)return 'сегодня!';if(d===1)return '1 день';if(d>=2&&d<=4)return d+' дня';return d+' дней';}
+
+function updateExamCountdowns(){
+  Object.entries(EXAM_DATES).forEach(([k,d])=>{const el=document.getElementById(k+'-days');if(el)el.textContent=formatDays(daysUntil(d));});
+  const el=document.getElementById('h-today-date');if(el)el.textContent=getTodayLabel();
 }
 
 function updateSubjectStats(){
   const counts={we:0,stat:0,mkt:0,trade:0};
-  Object.entries(state).forEach(([id,s])=>{
-    if(s.done&&!s.repeat&&s.tag&&counts[s.tag]!==undefined){
-      counts[s.tag]++;
-    }
-  });
+  Object.entries(state).forEach(([id,s])=>{if(s.done&&!s.repeat&&s.tag&&counts[s.tag]!==undefined)counts[s.tag]++;});
+  let td=0,ta=0;
   ['we','stat','mkt','trade'].forEach(tag=>{
-    const done=counts[tag];
-    const total=TOTALS[tag];
-    const pct=Math.round(done/total*100);
-    document.getElementById(tag+'-done').textContent=done;
-    document.getElementById(tag+'-bar').style.width=pct+'%';
-    const card=document.getElementById('card-'+tag);
-    if(done>=total){
-      card.classList.add('completed');
-    } else {
-      card.classList.remove('completed');
-    }
+    const done=counts[tag],total=TOTALS[tag],pct=Math.round(done/total*100);
+    td+=done;ta+=total;
+    const el=document.getElementById(tag+'-done');const bar=document.getElementById(tag+'-bar');
+    if(el)el.textContent=done;if(bar)bar.style.width=pct+'%';
+    const card=document.getElementById('card-'+tag);if(card)card.classList.toggle('completed',done>=total);
   });
+  const dEl=document.getElementById('h-done');if(dEl)dEl.textContent=td;
+  const p=document.getElementById('prog');if(p)p.style.width=Math.round(td/ta*100)+'%';
 }
 
 function updateSubjectProg(){
   document.querySelectorAll('.subject-block').forEach(block=>{
     const rows=block.querySelectorAll('.ticket-row:not(.is-repeat-row)');
     const done=block.querySelectorAll('.ticket-row:not(.is-repeat-row) .ticket-cb.done').length;
-    const prog=block.querySelector('.subject-prog');
-    if(prog)prog.textContent=done+'/'+rows.length;
+    const prog=block.querySelector('.subject-prog');if(prog)prog.textContent=done+'/'+rows.length;
   });
 }
 
-function toggleSubject(id){
-  const list=document.getElementById('tl-'+id);
-  const chev=document.getElementById('ch-'+id);
-  const isOpen=list.classList.contains('open');
-  list.classList.toggle('open',!isOpen);
-  chev.classList.toggle('open',!isOpen);
+function toggleTicket(id,tag,isRepeat){
+  if(!state[id])state[id]={};
+  state[id].done=!state[id].done;state[id].tag=tag;state[id].repeat=isRepeat;save();
+  const row=document.getElementById('tr-'+id);if(!row)return;
+  const s=state[id];
+  row.querySelector('.ticket-cb').className='ticket-cb'+(s.done?' done':'');
+  const nm=row.querySelector('.ticket-num');nm.className='ticket-num'+(s.done?' done':'')+(isRepeat?' is-repeat':'');
+  updateSubjectStats();updateSubjectProg();renderToday();
 }
 
-function openModal(id,currentName){
-  editTarget=id;
-  document.getElementById('modal-input').value=currentName;
-  document.getElementById('modal').classList.add('open');
-  setTimeout(()=>document.getElementById('modal-input').focus(),100);
+function openEdit(id,name){editTarget=id;document.getElementById('edit-input').value=name;openModal('modal-edit');setTimeout(()=>document.getElementById('edit-input').focus(),100);}
+function saveEdit(){
+  if(!editTarget)return;const val=document.getElementById('edit-input').value.trim();if(!val)return;
+  if(!state[editTarget])state[editTarget]={};state[editTarget].name=val;save();
+  const nm=document.querySelector('#tr-'+editTarget+' .ticket-num');if(nm)nm.textContent=val;
+  closeModal('modal-edit');renderToday();
 }
 
-function closeModal(){
-  document.getElementById('modal').classList.remove('open');
-  editTarget=null;
+function deleteTicket(id){
+  if(!confirm('Удалить этот билет?'))return;
+  if(!state[id])state[id]={};state[id].deleted=true;save();
+  const row=document.getElementById('tr-'+id);if(row)row.remove();
+  updateSubjectStats();updateSubjectProg();renderToday();
 }
 
-function saveModal(){
-  if(!editTarget)return;
-  const val=document.getElementById('modal-input').value.trim();
-  if(!val)return;
-  if(!state[editTarget])state[editTarget]={};
-  state[editTarget].name=val;
-  save();
-  const nm=document.querySelector('#tr-'+editTarget+' .ticket-num');
-  if(nm)nm.textContent=val;
-  closeModal();
+function openPostpone(id,name){
+  postponeTarget=id;selectedDate=null;
+  document.getElementById('postpone-sub').textContent=name;
+  const grid=document.getElementById('date-grid');grid.innerHTML='';
+  const today=new Date();
+  for(let i=1;i<=14;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    const m=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    const label=d.getDate()+' '+m[d.getMonth()];
+    const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    const div=document.createElement('div');div.className='date-opt';div.textContent=label;
+    div.onclick=()=>{selectedDate=key;document.querySelectorAll('.date-opt').forEach(x=>x.classList.remove('sel'));div.classList.add('sel');};
+    grid.appendChild(div);
+  }
+  openModal('modal-postpone');
+}
+function savePostpone(){
+  if(!postponeTarget||!selectedDate)return;
+  if(!state[postponeTarget])state[postponeTarget]={};
+  state[postponeTarget].postponed=true;state[postponeTarget].postponedTo=selectedDate;save();
+  const row=document.getElementById('tr-'+postponeTarget);
+  if(row){
+    row.classList.add('is-postponed');
+    if(!row.querySelector('.postponed-badge')){
+      const d=new Date(selectedDate);const m=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+      const badge=document.createElement('span');badge.className='postponed-badge';badge.textContent='→ '+d.getDate()+' '+m[d.getMonth()];
+      row.querySelector('.ticket-num').after(badge);
+    }
+  }
+  closeModal('modal-postpone');renderToday();
 }
 
-document.getElementById('modal-input').addEventListener('keydown',e=>{
-  if(e.key==='Enter')saveModal();
-  if(e.key==='Escape')closeModal();
-});
-document.getElementById('modal').addEventListener('click',e=>{
-  if(e.target===document.getElementById('modal'))closeModal();
-});
+function openAdd(dayKey,dayLabel){
+  addTarget={dayKey,dayLabel};selectedTag='we';
+  document.getElementById('add-sub').textContent=dayLabel;document.getElementById('add-input').value='';
+  document.querySelectorAll('.tag-opt').forEach(x=>x.className='tag-opt');
+  document.querySelector('[data-tag="we"]').className='tag-opt sel-we';
+  openModal('modal-add');setTimeout(()=>document.getElementById('add-input').focus(),100);
+}
+function selectTag(tag){
+  selectedTag=tag;document.querySelectorAll('.tag-opt').forEach(x=>x.className='tag-opt');
+  document.querySelector('[data-tag="'+tag+'"]').className='tag-opt sel-'+tag;
+}
+function saveAdd(){
+  if(!addTarget)return;const val=document.getElementById('add-input').value.trim();if(!val)return;
+  const newId='custom_'+Date.now();
+  state[newId]={name:val,tag:selectedTag,dayKey:addTarget.dayKey,isCustom:true};save();
+  closeModal('modal-add');render();
+}
+
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});});
+document.getElementById('edit-input').addEventListener('keydown',e=>{if(e.key==='Enter')saveEdit();if(e.key==='Escape')closeModal('modal-edit');});
+document.getElementById('add-input').addEventListener('keydown',e=>{if(e.key==='Enter')saveAdd();if(e.key==='Escape')closeModal('modal-add');});
+
+function renderToday(){
+  const todayKey=getTodayKey();const sec=document.getElementById('today-section');
+  let todayTickets=[];let ticketId=0;
+  SCHEDULE.forEach(section=>{
+    (section.sections||[]).forEach(day=>{
+      day.subjects.forEach(subj=>{
+        subj.tickets.forEach(ticket=>{
+          const id='tk'+ticketId++;
+          if(day.dateKey===todayKey&&!ticket.r){
+            const s=state[id]||{};if(!s.deleted&&!s.postponed)todayTickets.push({id,ticket,tag:subj.tag,label:subj.label,s});
+          }
+        });
+      });
+    });
+  });
+  Object.entries(state).forEach(([id,s])=>{if(s.isCustom&&s.dayKey===todayKey&&!s.deleted)todayTickets.push({id,ticket:{t:s.name||'Билет'},tag:s.tag||'we',label:s.tag==='stat'?'Статистика':s.tag==='mkt'?'Маркетинг':s.tag==='trade'?'Торговля':'МЭ',s});});
+  if(todayTickets.length===0){sec.innerHTML='';return;}
+  const done=todayTickets.filter(x=>x.s.done).length;
+  let html=`<div class="today-banner"><div class="today-banner-head"><div class="today-banner-label">Сегодня — ${getTodayLabel()}</div><div class="today-banner-progress">${done} / ${todayTickets.length} выполнено</div></div>`;
+  todayTickets.forEach(({id,ticket,tag,label,s})=>{
+    const name=s.name||ticket.t;
+    html+=`<div class="today-task" onclick="toggleTicket('${id}','${tag}',false)"><div class="tt-cb ${s.done?'done':''}"></div><span class="tt-tag tt-${tag}">${label}</span><span class="tt-name ${s.done?'done':''}">${name}</span><div class="tt-actions" onclick="event.stopPropagation()"><button class="tt-btn" onclick="openPostpone('${id}','${name.replace(/'/g,"\\'")}')">→ перенести</button><button class="tt-btn" onclick="openEdit('${id}','${name.replace(/'/g,"\\'")}')">✏️</button><button class="tt-btn" onclick="deleteTicket('${id}')">🗑️</button></div></div>`;
+  });
+  html+=`<button class="today-add-btn" onclick="openAdd('${todayKey}','${getTodayLabel()}')">+ добавить билет</button></div>`;
+  sec.innerHTML=html;
+}
 
 function render(){
-  const app=document.getElementById('schedule');
-  let html='';
-  let subjectId=0;
-  let ticketId=0;
+  const app=document.getElementById('schedule');const todayKey=getTodayKey();
+  let html='';let subjectId=0;let ticketId=0;
   SCHEDULE.forEach(section=>{
-    if(section.week){
-      html+=`<div class="week-divider"><span class="week-label">${section.week}</span></div>`;
-    }
-    if(section.event){
-      const e=section.event;
-      html+=`<div class="event-banner ev-${e.type}"><div class="ev-icon">${e.icon}</div><div class="ev-body"><div class="ev-text">${e.text}</div><div class="ev-date">${e.date}</div></div></div>`;
-    }
+    if(section.week)html+=`<div class="week-divider"><span class="week-label">${section.week}</span></div>`;
+    if(section.event){const e=section.event;html+=`<div class="event-banner ev-${e.type}"><div class="ev-icon">${e.icon}</div><div class="ev-body"><div class="ev-text">${e.text}</div><div class="ev-date">${e.date}</div></div></div>`;}
     (section.sections||[]).forEach(day=>{
-      html+=`<div class="day-card"><div class="day-head"><div class="day-date">${day.date}</div><div class="day-hours">${day.hours}</div></div>`;
+      const isToday=day.dateKey===todayKey;
+      html+=`<div class="day-card${isToday?' is-today':''}"><div class="day-head"><div class="day-date">${day.date}${isToday?'<span class="day-today-badge">сегодня</span>':''}</div><div class="day-hours">${day.hours}</div></div>`;
       day.subjects.forEach(subj=>{
         const sid='s'+subjectId++;
         const tids=subj.tickets.map(()=>'tk'+ticketId++);
@@ -406,28 +493,28 @@ function render(){
         const doneCnt=tids.filter((tid,i)=>state[tid]&&state[tid].done&&!subj.tickets[i].r).length;
         html+=`<div class="subject-block"><div class="subject-head" onclick="toggleSubject('${sid}')"><span class="tag t-${subj.tag}">${subj.label}</span><span class="subject-title">${realTickets.length===0?'повтор':realTickets.length+' билетов'}</span><span class="subject-prog">${doneCnt}/${realTickets.length||subj.tickets.length}</span><span class="chevron" id="ch-${sid}">▾</span></div><div class="ticket-list" id="tl-${sid}">`;
         subj.tickets.forEach((ticket,ti)=>{
-          const tid=tids[ti];
-          const s=state[tid]||{};
-          const name=s.name||ticket.t;
-          const isRepeat=ticket.r||false;
-          html+=`<div class="ticket-row${isRepeat?' is-repeat-row':''}" id="tr-${tid}" onclick="toggleTicket('${tid}','${subj.tag}',${isRepeat})"><div class="ticket-cb ${s.done?'done':''}"></div><div class="ticket-num ${s.done?'done':''}${isRepeat?' is-repeat':''}">${name}</div><button class="ticket-edit-btn" onclick="event.stopPropagation();openModal('${tid}','${(s.name||ticket.t).replace(/'/g,'&#39;')}')">✏️</button></div>`;
+          const tid=tids[ti];const s=state[tid]||{};if(s.deleted)return;
+          const name=s.name||ticket.t;const isRepeat=ticket.r||false;const isPostponed=s.postponed||false;
+          let badge='';
+          if(isPostponed&&s.postponedTo){const d=new Date(s.postponedTo);const m=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];badge=`<span class="postponed-badge">→ ${d.getDate()} ${m[d.getMonth()]}</span>`;}
+          html+=`<div class="ticket-row${isRepeat?' is-repeat-row':''}${isPostponed?' is-postponed':''}" id="tr-${tid}" onclick="toggleTicket('${tid}','${subj.tag}',${isRepeat})"><div class="ticket-cb ${s.done?'done':''}"></div><div class="ticket-num ${s.done?'done':''}${isRepeat?' is-repeat':''}">${name}</div>${badge}<div class="ticket-actions" onclick="event.stopPropagation()">${!isRepeat?`<button class="tick-btn" onclick="openPostpone('${tid}','${name.replace(/'/g,"\\'")}')">→</button>`:''}<button class="tick-btn" onclick="openEdit('${tid}','${name.replace(/'/g,"\\'")}')">✏️</button><button class="tick-btn" onclick="deleteTicket('${tid}')">🗑️</button></div></div>`;
         });
-        html+=`<div class="ticket-note-area"><textarea placeholder="Заметка..." onchange="saveNote('${sid}',this.value)" onclick="event.stopPropagation()">${state['note_'+sid]||''}</textarea></div></div></div>`;
+        const custom=Object.entries(state).filter(([id,s])=>s.isCustom&&s.dayKey===day.dateKey&&s.tag===subj.tag&&!s.deleted);
+        custom.forEach(([id,s])=>{const name=s.name||'Билет';html+=`<div class="ticket-row" id="tr-${id}" onclick="toggleTicket('${id}','${subj.tag}',false)"><div class="ticket-cb ${s.done?'done':''}"></div><div class="ticket-num ${s.done?'done':''}">${name}</div><div class="ticket-actions" onclick="event.stopPropagation()"><button class="tick-btn" onclick="openPostpone('${id}','${name.replace(/'/g,"\\'")}')">→</button><button class="tick-btn" onclick="openEdit('${id}','${name.replace(/'/g,"\\'")}')">✏️</button><button class="tick-btn" onclick="deleteTicket('${id}')">🗑️</button></div></div>`;});
+        html+=`<button class="add-ticket-btn" onclick="openAdd('${day.dateKey}','${day.date}')">+ добавить билет</button></div></div>`;
       });
       html+='</div>';
     });
   });
-  app.innerHTML=html;
-  updateSubjectStats();
-  updateSubjectProg();
+  app.innerHTML=html;updateSubjectStats();updateSubjectProg();renderToday();
 }
 
-function saveNote(sid,val){
-  state['note_'+sid]=val;
-  save();
+function toggleSubject(id){
+  const list=document.getElementById('tl-'+id);const chev=document.getElementById('ch-'+id);if(!list)return;
+  const isOpen=list.classList.contains('open');list.classList.toggle('open',!isOpen);chev.classList.toggle('open',!isOpen);
 }
 
-render();
+updateExamCountdowns();render();setInterval(updateExamCountdowns,60000);
 </script>
 </body>
 </html>
